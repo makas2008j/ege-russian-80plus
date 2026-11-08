@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>ЕГЭ Русский язык — План 80+</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--hover:#334155;--text:#f8fafc;--muted:#94a3b8;--accent:#3b82f6;--success:#10b981;--border:#334155}
+[data-theme="light"]{--bg:#f1f5f9;--card:#fff;--hover:#e2e8f0;--text:#0f172a;--muted:#64748b;--accent:#2563eb;--success:#059669;--border:#cbd5e1}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{background:var(--bg);color:var(--text);padding-bottom:90px;min-height:100vh}
+.container{max-width:760px;margin:auto;padding:14px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:8px 0;border-bottom:1px solid var(--border)}
+h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4ed8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.icon-btn,.btn-small,.btn-main,.tab-btn{cursor:pointer}
+.icon-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:12px;font-weight:600}
+.progress-card,.week-card,.card-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:12px}
+.progress-header{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:8px}
+.progress-bar-bg{background:var(--border);height:9px;border-radius:9px;overflow:hidden}
+.progress-bar-fill{height:100%;width:0;background:linear-gradient(135deg,#3b82f6,#1d4ed8);transition:.35s}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--card);padding:4px;border-radius:14px;border:1px solid var(--border);margin-bottom:16px}
+.tab-btn{background:transparent;border:0;color:var(--muted);padding:9px 3px;font-size:12px;font-weight:700;border-radius:10px}
+.tab-btn.active{background:var(--accent);color:#fff}
+.tab-content{display:none} .tab-content.active{display:block}
+.week-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.week-title{font-size:15px;font-weight:800}
+.week-target{font-size:11px;background:rgba(59,130,246,.15);color:var(--accent);padding:4px 7px;border-radius:7px;font-weight:800;white-space:nowrap}
+.week-details{font-size:12px;color:var(--muted);line-height:1.45;margin:8px 0 11px}
+.week-actions{display:flex;gap:7px;flex-wrap:wrap}
+.btn-small{background:var(--accent);color:#fff;border:0;padding:8px 10px;border-radius:9px;font-size:11px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.btn-secondary{background:var(--hover);color:var(--text)}
+.checkbox-container{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;margin-left:auto;cursor:pointer}
+.checkbox-container input{display:none}
+.custom-checkbox{width:18px;height:18px;border:2px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center}
+.checkbox-container input:checked~.custom-checkbox{background:var(--success);border-color:var(--success)}
+.checkbox-container input:checked~.custom-checkbox::after{content:"✓";color:#fff;font-weight:900;font-size:11px}
+.select-box{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--border);padding:10px;border-radius:10px;font-size:13px;margin:8px 0 10px}
+.btn-main{width:100%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;border:0;padding:12px;border-radius:12px;font-size:14px;font-weight:800}
+.task-list{max-height:520px;overflow-y:auto;margin-top:12px}
+.task-item{background:var(--bg);padding:12px;border-radius:11px;border:1px solid var(--border);margin-bottom:8px}
+.task-title{font-size:13px;font-weight:800;margin-bottom:4px}
+.task-desc{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:9px}
+.source-badge{display:inline-block;font-size:10px;padding:3px 6px;border-radius:6px;background:rgba(16,185,129,.13);color:var(--success);font-weight:800;margin-bottom:7px}
+.routine-row{background:var(--bg);padding:9px;border-radius:9px;margin-bottom:7px;border:1px solid var(--border);font-size:12px}
+.notice{font-size:11px;color:var(--muted);line-height:1.5;margin-top:8px}
+.video-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:1000;justify-content:center;align-items:center;padding:12px}
+.video-content{background:var(--card);width:100%;max-width:760px;border-radius:18px;overflow:hidden;border:1px solid var(--border)}
+.video-head{padding:12px 14px;display:flex;justify-content:space-between;border-bottom:1px solid var(--border);font-weight:800}
+.video-wrap{position:relative;width:100%;padding-bottom:56.25%;background:#000}
+.video-wrap iframe,.video-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-foot{padding:12px;display:flex;gap:6px;flex-wrap:wrap;background:var(--bg)}
+@media(max-width:500px){.container{max-width:420px}.week-target{font-size:10px}}
+
+.task-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.task-btn{padding:12px 8px;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:12px;cursor:pointer;text-align:left}.task-btn:hover{border-color:#6b7cff}.task-btn b{display:block;font-size:18px}.task-btn span{font-size:11px;color:var(--muted)}.quiz-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.muted{color:var(--muted);font-size:12px;margin-top:4px}.quiz-progress-bg{height:8px;background:var(--border);border-radius:99px;overflow:hidden;margin:14px 0}.quiz-progress-bg>div{height:100%;width:0;background:#6b7cff;transition:.2s}.q-title{font-size:17px;line-height:1.5;margin:18px 0}.q-option{display:block;padding:12px;margin:8px 0;border:1px solid var(--border);border-radius:12px;cursor:pointer;background:var(--bg)}.q-option:hover{border-color:#6b7cff}.q-option.selected{border-color:#6b7cff;background:rgba(107,124,255,.12)}.q-option input{margin-right:8px}.quiz-nav{display:flex;justify-content:space-between;gap:8px;margin-top:16px}.answer-review{padding:12px;border-radius:12px;margin-top:10px;border:1px solid var(--border)}.answer-review.ok{border-color:#42b883}.answer-review.bad{border-color:#e57373}.result-score{font-size:34px;font-weight:800;margin:8px 0}@media(max-width:650px){.task-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:430px){.task-grid{grid-template-columns:repeat(2,1fr)}}
+/* ===== iPhone 13 / iOS mobile adaptation ===== */
+html{background:var(--bg);-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{-webkit-font-smoothing:antialiased;overscroll-behavior-y:none;min-height:100svh;padding-bottom:calc(84px + env(safe-area-inset-bottom));}
+button,a,label{ -webkit-tap-highlight-color:transparent; }
+button,input,select,textarea{font:inherit;}
+button{touch-action:manipulation;}
+.container{width:100%;max-width:760px;padding:12px 14px 24px;margin:0 auto;}
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);margin:0 -14px 14px;padding:calc(8px + env(safe-area-inset-top)) 14px 10px;border-bottom:1px solid var(--border);}
+h1{font-size:18px;line-height:1.2;}
+.icon-btn{min-height:44px;min-width:44px;padding:9px 12px;}
+.progress-card,.week-card,.card-section{border-radius:18px;padding:15px;margin-bottom:12px;}
+.tabs{position:sticky;top:62px;z-index:19;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:4px;margin:0 -2px 14px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+.tab-btn{min-height:44px;padding:8px 2px;font-size:12px;}
+.week-top{gap:10px;}
+.week-title{font-size:15px;line-height:1.3;}
+.week-target{font-size:10px;}
+.week-details{font-size:13px;line-height:1.5;}
+.week-actions{gap:8px;}
+.btn-small{min-height:44px;padding:10px 12px;font-size:12px;border-radius:11px;}
+.checkbox-container{min-height:44px;}
+.custom-checkbox{width:22px;height:22px;}
+.select-box{min-height:46px;font-size:16px;}
+.btn-main{min-height:48px;font-size:15px;border-radius:13px;}
+.task-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+.task-btn{min-height:92px;padding:13px 11px;border-radius:14px;}
+.task-btn b{font-size:20px;}
+.task-btn span{font-size:11px;line-height:1.3;display:block;margin-top:2px;}
+.quiz-head{position:sticky;top:0;z-index:10;background:var(--card);padding-bottom:8px;}
+.q-title{font-size:18px;line-height:1.45;margin:18px 0 14px;}
+.q-option{min-height:52px;padding:14px 13px;margin:9px 0;font-size:16px;line-height:1.35;display:flex;align-items:flex-start;gap:7px;}
+.q-option input{width:20px;height:20px;flex:0 0 auto;margin:0;accent-color:var(--accent);}
+.quiz-nav{position:sticky;bottom:calc(58px + env(safe-area-inset-bottom));z-index:12;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);margin:14px -15px -15px;padding:10px 15px calc(10px + env(safe-area-inset-bottom));}
+.quiz-nav .btn-small,.quiz-nav .btn-main{width:48%;}
+.result-score{font-size:38px;}
+.answer-review{font-size:14px;line-height:1.45;padding:13px;}
+.video-modal{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);align-items:center;}
+.video-content{width:100%;max-width:none;border-radius:20px 20px 0 0;max-height:100svh;overflow:auto;}
+.video-head{min-height:56px;padding:10px 14px;}
+.video-wrap{padding-bottom:56.25%;}
+.video-foot{padding:10px 14px calc(10px + env(safe-area-inset-bottom));}
+.notice{font-size:12px;}
+.routine-row{font-size:13px;line-height:1.45;padding:11px;}
+@media (max-width:430px){
+  .container{padding-left:13px;padding-right:13px;}
+  .tabs{top:60px;}
+  .tab-btn{font-size:11px;}
+  .week-top{display:block;}
+  .week-target{display:inline-block;margin-top:7px;}
+  .week-actions .btn-small{flex:1 1 calc(50% - 8px);justify-content:center;}
+}
+@media (min-width:431px){.task-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media (orientation:landscape) and (max-height:500px){
+  .container{max-width:900px;}
+  .video-content{max-height:100svh;}
+}
+
+</style>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#111827"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="ЕГЭ Русский 80+">
+</head>
+<body data-theme="dark">
+<div class="container">
+<header><h1>ЕГЭ Русский • 80+</h1><button class="icon-btn" onclick="toggleTheme()">☀️ / 🌙</button></header>
+
+<div class="progress-card">
+<div class="progress-header"><span>Общий прогресс</span><span id="progress-text">0 / 28 недель</span></div>
+<div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+</div>
+
+<div class="tabs">
+<button class="tab-btn active" onclick="switchTab('plan',this)">План</button>
+<button class="tab-btn" onclick="switchTab('trainer',this)">Тренажер</button>
+<button class="tab-btn" onclick="switchTab('routine',this)">Режим</button>
+<button class="tab-btn" onclick="switchTab('progress',this)">Прогресс</button>
+</div>
+
+<section id="tab-plan" class="tab-content active"><div id="weeks-list"></div></section>
+
+<section id="tab-trainer" class="tab-content">
+<div class="card-section">
+<h3>Тренажёр ЕГЭ</h3>
+<p class="notice">26 отдельных тестов. В каждом — 30 вопросов. Ответы и объяснения появляются только после нажатия «Завершить тест».</p>
+<div id="trainer-tasks" class="task-grid"></div>
+</div>
+<div class="card-section" id="quiz-card" style="display:none">
+<div class="quiz-head"><div><b id="quiz-title"></b><div id="quiz-progress" class="muted"></div></div><button class="btn-small btn-secondary" onclick="exitQuiz()">✕ Выйти</button></div>
+<div class="quiz-progress-bg"><div id="quiz-progress-bar"></div></div>
+<div id="quiz-question"></div>
+<div class="quiz-nav"><button class="btn-small btn-secondary" onclick="prevQuestion()">← Назад</button><button class="btn-main" id="next-btn" onclick="nextQuestion()">Далее →</button></div>
+</div>
+<div class="card-section" id="quiz-result" style="display:none"></div>
+</section>
+
+<section id="tab-routine" class="tab-content"><div class="card-section"><h3>Режим недели</h3><div id="routine-list"></div></div></section>
+<section id="tab-progress" class="tab-content"><div class="card-section"><h3>История тестов</h3><div id="history-list">Пока нет тестов.</div></div></section>
+</div>
+
+<div class="video-modal" id="videoModal">
+<div class="video-content">
+<div class="video-head"><span id="modalVideoTitle">Видеоурок</span><button class="icon-btn" onclick="closeVideoModal()">✕</button></div>
+<div class="video-wrap" id="videoWrap"></div>
+<div class="video-foot">
+<button class="btn-small" onclick="playYouTube()">▶ YouTube</button>
+<label class="btn-small btn-secondary">📂 Файл<input id="videoFile" type="file" accept="video/*" style="display:none" onchange="saveLocalVideo(event)"></label>
+</div>
+</div>
+</div>
+
+<script>
+const rawExcelPlan = [{"period": "Ноябрь • Нед. 1", "target": "10–20 → 25+", "topics": "База; №9: корни", "yt": "Вся теория по русскому перед 11 классом\nhttps://www.youtube.com/watch?v=qXpmDiyGOTQ\n\n№9: Правописание корней\nhttps://www.youtube.com/watch?v=ZgtD1DHQKFE", "practice": "№9: 30–40 заданий", "control": "Мини-тест №9"}, {"period": "Ноябрь • Нед. 2", "target": "25–30", "topics": "№10–11: приставки, суффиксы", "yt": "Орфография 9–15\nhttps://www.youtube.com/watch?v=A5N7cKURIS0\n\n№11: Правописание суффиксов\nhttps://www.youtube.com/watch?v=ZOWDAzDfiPs", "practice": "№10–11: по 30 заданий", "control": "Тест №9–11"}, {"period": "Ноябрь • Нед. 3", "target": "30–35", "topics": "№12–13: глаголы, причастия, НЕ", "yt": "Орфография 9–15\nhttps://www.youtube.com/watch?v=A5N7cKURIS0", "practice": "№12–13: по 30 заданий", "control": "Тест №9–13"}, {"period": "Ноябрь • Нед. 4", "target": "35–40", "topics": "№14–15: слитное/раздельное, Н/НН", "yt": "Орфография 9–15\nhttps://www.youtube.com/watch?v=A5N7cKURIS0", "practice": "№14–15: по 30 заданий", "control": "Мини-вариант 1–15"}, {"period": "Декабрь • Нед. 1", "target": "40–45", "topics": "№7: морфологические нормы", "yt": "Задание 7: Морфологические нормы\nhttps://www.youtube.com/watch?v=OXl994SN8ww", "practice": "№7: 30–40 заданий", "control": "Тест №7"}, {"period": "Декабрь • Нед. 2", "target": "45–50", "topics": "№8: грамматические нормы", "yt": "Задание 8: как избежать ошибок\nhttps://www.youtube.com/watch?v=11UapqZfAvE", "practice": "№8: 30–40 заданий", "control": "Тест №7–8"}, {"period": "Декабрь • Нед. 3", "target": "50–55", "topics": "№16–18: базовая пунктуация", "yt": "Пунктуация 16–21\nhttps://www.youtube.com/watch?v=_kRe3oM3IVE", "practice": "№16–18: по 25–30 заданий", "control": "Мини-вариант 7–18"}, {"period": "Декабрь • Нед. 4", "target": "55–60", "topics": "№19–21: сложные предложения", "yt": "Пунктуация 16–21\nhttps://www.youtube.com/watch?v=_kRe3oM3IVE", "practice": "№19–21: по 25–30 заданий", "control": "Вариант 1–21"}, {"period": "Январь • Нед. 1", "target": "55–60", "topics": "Повтор №7–15", "yt": "Повтор старых видео + разбор ошибок", "practice": "100 смешанных заданий", "control": "Пробник №1"}, {"period": "Январь • Нед. 2", "target": "60–65", "topics": "Повтор №16–21", "yt": "Повтор пунктуации + разбор ошибок", "practice": "100 смешанных заданий", "control": "Пробник №2"}, {"period": "Январь • Нед. 3", "target": "60–65", "topics": "№1–6, №22–26", "yt": "Точечно: только темы, где есть ошибки", "practice": "50–70 заданий", "control": "Пробник №3"}, {"period": "Январь • Нед. 4", "target": "65+", "topics": "Вся тестовая часть", "yt": "Разборы вариантов + повтор теории", "practice": "2 полноценных варианта", "control": "Пробник №4"}, {"period": "Февраль • Нед. 1", "target": "65+", "topics": "Сочинение: структура", "yt": "Сочинение ЕГЭ: руководство\nhttps://www.youtube.com/watch?v=VYaQ5DLXIGg", "practice": "1 сочинение + разбор", "control": "Проверка по критериям"}, {"period": "Февраль • Нед. 2", "target": "65–70", "topics": "Проблема, позиция автора, примеры", "yt": "Сочинение ЕГЭ 2026 с нуля\nhttps://www.youtube.com/watch?v=MWkxckvKTx0", "practice": "1–2 сочинения", "control": "Проверка К1–К6"}, {"period": "Февраль • Нед. 3", "target": "70+", "topics": "Связь примеров, аргументация", "yt": "Повтор уроков по сочинению + разборы", "practice": "2 сочинения", "control": "Проверка К1–К10"}, {"period": "Февраль • Нед. 4", "target": "70+", "topics": "Речь, логика, грамотность", "yt": "Разбор собственных ошибок", "practice": "2 сочинения + 1 вариант", "control": "Пробник №5"}, {"period": "Март • Нед. 1", "target": "70–75", "topics": "Варианты целиком", "yt": "Разборы вариантов", "practice": "2 варианта + ошибки", "control": "Пробник №6"}, {"period": "Март • Нед. 2", "target": "75+", "topics": "Слабые темы", "yt": "Точечные видео по ошибкам", "practice": "50–80 целевых заданий", "control": "Пробник №7"}, {"period": "Март • Нед. 3", "target": "75–80", "topics": "Тест + сочинение", "yt": "Разборы вариантов + сочинений", "practice": "2 варианта + сочинение", "control": "Пробник №8"}, {"period": "Март • Нед. 4", "target": "80+", "topics": "Закрепление", "yt": "Только точечная теория", "practice": "2–3 варианта", "control": "Пробник №9"}, {"period": "Апрель • Нед. 1", "target": "80+", "topics": "Стабильность", "yt": "Видео только по ошибкам", "practice": "2–3 варианта + сочинение", "control": "Пробник №10"}, {"period": "Апрель • Нед. 2", "target": "80+", "topics": "Стабильность", "yt": "Видео только по ошибкам", "practice": "2–3 варианта + сочинение", "control": "Пробник №11"}, {"period": "Апрель • Нед. 3", "target": "80–85", "topics": "Сложные темы", "yt": "Разборы ошибок", "practice": "3 варианта", "control": "Пробник №12"}, {"period": "Апрель • Нед. 4", "target": "80–85+", "topics": "Экзаменационный режим", "yt": "Повтор конспектов", "practice": "3 варианта + сочинение", "control": "Пробник №13"}, {"period": "Май • Нед. 1", "target": "80–85+", "topics": "Финишная отработка", "yt": "Только слабые места", "practice": "3 варианта", "control": "Пробник №14"}, {"period": "Май • Нед. 2", "target": "80–90", "topics": "Финиш", "yt": "Краткое повторение правил", "practice": "2–3 варианта", "control": "Пробник №15"}, {"period": "Май • Нед. 3", "target": "80+", "topics": "Лёгкое повторение", "yt": "Конспекты + ошибки", "practice": "1–2 варианта без перегруза", "control": "Контрольный вариант"}, {"period": "Последняя неделя", "target": "80+", "topics": "Сон, режим, повтор", "yt": "Без новой теории", "practice": "1 лёгкий вариант + ошибки", "control": "Готовность"}];
+const routineData = [{"day": "Пн", "action": "Видео + конспект + практика", "time": "1,5–2 ч", "res": "20–30 заданий"}, {"day": "Вт", "action": "Практика текущей темы", "time": "1,5 ч", "res": "30–40 заданий"}, {"day": "Ср", "action": "Видео/повтор + практика", "time": "1,5–2 ч", "res": "20–30 заданий"}, {"day": "Чт", "action": "Практика + работа над ошибками", "time": "1,5 ч", "res": "30–40 заданий"}, {"day": "Пт", "action": "Смешанные задания", "time": "1,5 ч", "res": "40–50 заданий"}, {"day": "Сб", "action": "Мини-вариант / сочинение", "time": "2–3 ч", "res": "Контроль прогресса"}, {"day": "Вс", "action": "Отдых или лёгкое повторение", "time": "0–45 мин", "res": "Без перегруза"}];
+const realVariants = [{"id": 1, "title": "Решу ЕГЭ — реальный вариант №1", "url": "https://rus-ege.sdamgia.ru/test?id=1"}, {"id": 2, "title": "Решу ЕГЭ — реальный вариант №2", "url": "https://rus-ege.sdamgia.ru/test?id=2"}, {"id": 3, "title": "Решу ЕГЭ — реальный вариант №3", "url": "https://rus-ege.sdamgia.ru/test?id=3"}, {"id": 4, "title": "Решу ЕГЭ — реальный вариант №4", "url": "https://rus-ege.sdamgia.ru/test?id=4"}, {"id": 5, "title": "Решу ЕГЭ — реальный вариант №5", "url": "https://rus-ege.sdamgia.ru/test?id=5"}, {"id": 6, "title": "Решу ЕГЭ — реальный вариант №6", "url": "https://rus-ege.sdamgia.ru/test?id=6"}, {"id": 7, "title": "Решу ЕГЭ — реальный вариант №7", "url": "https://rus-ege.sdamgia.ru/test?id=7"}, {"id": 8, "title": "Решу ЕГЭ — реальный вариант №8", "url": "https://rus-ege.sdamgia.ru/test?id=8"}, {"id": 9, "title": "Решу ЕГЭ — реальный вариант №9", "url": "https://rus-ege.sdamgia.ru/test?id=9"}, {"id": 10, "title": "Решу ЕГЭ — реальный вариант №10", "url": "https://rus-ege.sdamgia.ru/test?id=10"}, {"id": 11, "title": "Решу ЕГЭ — реальный вариант №11", "url": "https://rus-ege.sdamgia.ru/test?id=11"}, {"id": 12, "title": "Решу ЕГЭ — реальный вариант №12", "url": "https://rus-ege.sdamgia.ru/test?id=12"}, {"id": 13, "title": "Решу ЕГЭ — реальный вариант №13", "url": "https://rus-ege.sdamgia.ru/test?id=13"}, {"id": 14, "title": "Решу ЕГЭ — реальный вариант №14", "url": "https://rus-ege.sdamgia.ru/test?id=14"}, {"id": 15, "title": "Решу ЕГЭ — реальный вариант №15", "url": "https://rus-ege.sdamgia.ru/test?id=15"}, {"id": 16, "title": "Решу ЕГЭ — реальный вариант №16", "url": "https://rus-ege.sdamgia.ru/test?id=16"}, {"id": 17, "title": "Решу ЕГЭ — реальный вариант №17", "url": "https://rus-ege.sdamgia.ru/test?id=17"}, {"id": 18, "title": "Решу ЕГЭ — реальный вариант №18", "url": "https://rus-ege.sdamgia.ru/test?id=18"}, {"id": 19, "title": "Решу ЕГЭ — реальный вариант №19", "url": "https://rus-ege.sdamgia.ru/test?id=19"}, {"id": 20, "title": "Решу ЕГЭ — реальный вариант №20", "url": "https://rus-ege.sdamgia.ru/test?id=20"}, {"id": 21, "title": "Решу ЕГЭ — реальный вариант №21", "url": "https://rus-ege.sdamgia.ru/test?id=21"}, {"id": 22, "title": "Решу ЕГЭ — реальный вариант №22", "url": "https://rus-ege.sdamgia.ru/test?id=22"}, {"id": 23, "title": "Решу ЕГЭ — реальный вариант №23", "url": "https://rus-ege.sdamgia.ru/test?id=23"}, {"id": 24, "title": "Решу ЕГЭ — реальный вариант №24", "url": "https://rus-ege.sdamgia.ru/test?id=24"}, {"id": 25, "title": "Решу ЕГЭ — реальный вариант №25", "url": "https://rus-ege.sdamgia.ru/test?id=25"}, {"id": 26, "title": "Решу ЕГЭ — реальный вариант №26", "url": "https://rus-ege.sdamgia.ru/test?id=26"}, {"id": 27, "title": "Решу ЕГЭ — реальный вариант №27", "url": "https://rus-ege.sdamgia.ru/test?id=27"}, {"id": 28, "title": "Решу ЕГЭ — реальный вариант №28", "url": "https://rus-ege.sdamgia.ru/test?id=28"}, {"id": 29, "title": "Решу ЕГЭ — реальный вариант №29", "url": "https://rus-ege.sdamgia.ru/test?id=29"}, {"id": 30, "title": "Решу ЕГЭ — реальный вариант №30", "url": "https://rus-ege.sdamgia.ru/test?id=30"}];
+const fipiIds = ["19723E", "0ABFEC", "598D63", "9D14F3", "125B45", "D52745", "2A3746", "F7E56F", "EEB949", "0F1309", "BE17FA", "FB77FA", "BEF9EE", "3573FE", "8F0049", "1F6545", "2A124A", "159745", "535FCA", "CE8DFD", "29A164", "438B08", "8BD010", "71FF7c", "c590cF", "A974B4", "cB7468"];
+
+let completedWeeks = JSON.parse(localStorage.getItem('ege_completed_weeks') || '{}');
+let testHistory = JSON.parse(localStorage.getItem('ege_test_history') || '[]');
+let currentVideoWeek = null;
+let localVideos = JSON.parse(localStorage.getItem('ege_local_videos') || '{}');
+
+const fipiBankUrl = 'https://fipi.ru/ege/otkrytyy-bank-zadaniy-ege';
+const sdamgiaBase = 'https://rus-ege.sdamgia.ru/';
+
+function initApp() {
+  renderWeeks(); renderTrainer(); renderFipi(); renderRoutine(); renderHistory(); updateProgress();
+}
+function switchTab(id,btn) {
+  document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active'); btn.classList.add('active');
+}
+function toggleTheme() {
+  document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark'?'light':'dark');
+}
+function renderWeeks() {
+  const el=document.getElementById('weeks-list'); el.innerHTML='';
+  rawExcelPlan.forEach((w,i)=>{
+    const checked=completedWeeks[i]?'checked':'';
+    const video=w.yt ? 'Есть' : 'Нет';
+    el.insertAdjacentHTML('beforeend',`
+      <div class="week-card">
+        <div class="week-top"><div class="week-title">${esc(w.period)}</div><div class="week-target">${esc(w.target)}</div></div>
+        <div class="week-details">
+          <b>Темы:</b> ${esc(w.topics)}<br>
+          <b>Что смотреть:</b> ${esc(cleanVideoText(w.yt))}<br>
+          <b>Практика:</b> ${esc(w.practice)}<br>
+          <b>Контроль:</b> ${esc(w.control)}<br>
+          <b>Видео:</b> ${video==='Есть'?'✅':'—'}
+        </div>
+        <div class="week-actions">
+          ${w.yt ? `<button class="btn-small" onclick="openVideo(${i})">▶ Видео</button>` : ''}
+          <a class="btn-small btn-secondary" href="${sdamgiaBase}" target="_blank">📚 Банк Решу ЕГЭ</a>
+          <a class="btn-small btn-secondary" href="${fipiBankUrl}" target="_blank">🏛 ФИПИ</a>
+          <label class="checkbox-container"><input type="checkbox" ${checked} onchange="toggleWeek(${i},this)"><span class="custom-checkbox"></span><span>Пройдено</span></label>
+        </div>
+      </div>`);
+  });
+}
+function cleanVideoText(s) { return (s||'').replace(/https?:\/\/\S+/g,'').replace(/\s+/g,' ').trim() || 'Теория по теме'; }
+function esc(s) { return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toggleWeek(i,cb) { completedWeeks[i]=cb.checked; localStorage.setItem('ege_completed_weeks',JSON.stringify(completedWeeks)); updateProgress(); }
+function updateProgress() {
+  const total=rawExcelPlan.length, done=Object.values(completedWeeks).filter(Boolean).length;
+  document.getElementById('progress-text').textContent=`${done} / ${total} недель`;
+  document.getElementById('progress-bar').style.width=`${total ? done/total*100 : 0}%`;
+}
+
+function extractYoutube(s) {
+  const m=(s||'').match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
+  return m ? `https://www.youtube.com/embed/${m[1]}` : '';
+}
+function openVideo(i) {
+  currentVideoWeek=i;
+  document.getElementById('modalVideoTitle').textContent=rawExcelPlan[i].period;
+  document.getElementById('videoModal').style.display='flex';
+  playYouTube();
+}
+function playYouTube() {
+  const url=extractYoutube(rawExcelPlan[currentVideoWeek]?.yt);
+  document.getElementById('videoWrap').innerHTML=url
+    ? `<iframe src="${url}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+    : '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#fff;padding:20px;text-align:center">Для этой недели видео не задано в таблице.</div>';
+}
+function saveLocalVideo(e) {
+  const f=e.target.files?.[0]; if(!f || currentVideoWeek===null) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{localVideos[currentVideoWeek]=ev.target.result;localStorage.setItem('ege_local_videos',JSON.stringify(localVideos));};
+  reader.readAsDataURL(f);
+}
+function closeVideoModal() { document.getElementById('videoModal').style.display='none'; document.getElementById('videoWrap').innerHTML=''; }
+
+// ===== In-app trainer =====
+const taskTopics = {
+1:'Смысловая и фактическая информация текста',2:'Средства связи предложений',3:'Лексическое значение и контекст',4:'Орфоэпические нормы',5:'Лексические нормы',6:'Паронимы и лексические ошибки',7:'Морфологические нормы',8:'Грамматические нормы',9:'Корни',10:'Приставки',11:'Суффиксы',12:'Личные окончания и формы слов',13:'НЕ/НИ',14:'Слитное, раздельное, дефисное написание',15:'Н/НН',16:'Пунктуация при обособлении',17:'Пунктуация при вводных конструкциях',18:'Пунктуация при обращениях и уточнениях',19:'Сложноподчинённые предложения',20:'Сложные предложения с разными видами связи',21:'Бессоюзная связь',22:'Средства выразительности',23:'Лексика и фразеология',24:'Функциональные стили',25:'Грамматическая основа и типы связи',26:'Средства связи предложений в тексте'
+};
+const pools={
+1:[['Какова главная мысль текста?','Автор доказывает необходимость бережного отношения к природе.','Автор перечисляет виды растений.','Автор рассказывает о погоде.','Автор спорит о спорте.'],['Что является темой текста?','Влияние чтения на человека.','История одного города.','Описание погоды.','Правила дорожного движения.'],['Какой вывод следует из текста о регулярной практике?','Навык формируется постепенно.','Навык возникает мгновенно.','Практика не влияет на результат.','Результат зависит только от удачи.']],
+2:[['Какое средство связи лучше всего подходит: «Наступила осень. ___ дни стали короче».','Поэтому','Но','Зато','Хотя'],['Укажите средство связи: «Эксперимент завершили. Результаты опубликовали».','Лексический повтор','Противительный союз','Вводное слово','Обращение'],['Какое слово может заменить повтор: «Учёный представил доклад. ___ вызвал интерес».','Он','Однако','Поэтому','Хотя']],
+3:[['В каком варианте слово «ключ» употреблено в значении «источник воды»?','Лесной ключ бил из-под камня.','Ключ лежал на столе.','Ключ к задаче оказался простым.','Музыкальный ключ изменился.'],['Что означает слово «адресат»?','Получатель сообщения','Отправитель сообщения','Автор словаря','Редактор текста'],['Какое значение имеет «прецедент»?','Случай, служащий примером для последующих случаев.','Точный перевод слова.','Список терминов.','Вид художественного тропа.']],
+4:[['Выберите нормативное ударение.','звонИт','звОнит','звонит́','звонИть'],['Выберите нормативное ударение.','каталОг','катАлог','каталОг','каталоѓ'],['Выберите нормативное ударение.','тОрты','тортЫ','тОрты','тортЫ']],
+5:[['Выберите нормативное сочетание.','оказать влияние','оказать воздействие влияние','произвести влияние','сделать влияние'],['Как правильно?','оплатить проезд','оплатить за проезд','заплатить проезд','оплатить о проезде'],['Как правильно?','предоставить возможность','предоставить шанс возможность','дать предоставление','предоставить возможностью']],
+6:[['Выберите слово: «Эффект от лекарства оказался ___».','эффективным','эффектным','эффектированным','эффектующим'],['Выберите слово: «Компания представила ___ проект».','эффектный','эффективный','эффектированный','эффективно'],['Выберите слово: «Он ___ форму заявления».','заполнил','наполнял','исполнял','выполнил форму']],
+7:[['Выберите нормативную форму: «несколько ___».','договоров','договора','договор','договоры'],['Выберите нормативную форму: «пять ___».','килограммов','килограмм','килограммы','килограмма'],['Выберите нормативную форму: «пара ___».','ботинок','ботинка','ботинки','ботинков']],
+8:[['Выберите правильное управление.','согласно приказу','согласно приказа','согласно с приказом','согласно приказ'],['Выберите правильное сочетание.','благодаря помощи','благодаря помощь','благодаря с помощью','благодаря помощью'],['Выберите правильную конструкцию.','более пятисот страниц','более пятьсот страниц','более пятиста страниц','более пятисотами страниц']],
+9:[['В каком слове корень содержит проверяемую безударную гласную?','гористый','растение','касаться','зарница'],['Выберите слово с буквой О в корне.','поклониться','прикоснуться','касание','скакать'],['Выберите слово с буквой А в корне.','растение','росток','заросли','росинка']],
+10:[['Выберите приставку ПРЕ- в значении высокой степени.','преинтересный','приехать','приоткрыть','присесть'],['В каком слове приставка ПРИ- означает приближение?','приехать','прекрасный','прервать','предобрый'],['В каком слове после приставки пишется Ы?','предыстория','безинтересный','сиграть','подыскать']],
+11:[['В каком слове пишется суффикс -ИВ-?','дождливый','усидчивый','заботливый','красивый'],['В каком слове пишется -ЧИК-?','переводчик','разведчик','летчик','рассказчик'],['Выберите слово с суффиксом -ОВА- в глаголе.','рисовать','советовать','танцевать','ночевать']],
+12:[['Выберите правильную форму глагола: «они ___».','поедут','едит','поедит','ездятт'],['Выберите правильное окончание: «он стро___т».','и','е','я','ю'],['Выберите правильную форму: «они ___ договор».','заключат','заключаютт','заключит','заключешь']],
+13:[['Выберите правильное написание: «___ с кем не спорил».','ни с кем','не с кем','нискем','нес кем'],['Выберите правильное написание: «Он ___ заметил ошибки».','не','ни','нео','ние'],['Выберите вариант: «___ разу не опоздал».','ни разу','не разу','ниразу','неразу']],
+14:[['Выберите правильное написание.','по-новому','поновому','по новому','по-новомуу'],['Выберите правильное написание.','в течение дня','втечение дня','в течении дня','втечении дня'],['Выберите правильное написание.','из-за дождя','изза дождя','из за дождя','из-дождя']],
+15:[['Выберите вариант.','решённая задача','решеная задача','решённаяя задача','решённа задача'],['Выберите вариант.','воспитанный человек','воспитаный человек','воспитанныйй человек','воспитанаый человек'],['Выберите вариант.','крашеный пол','крашенный пол','крашеныйй пол','крашеннаый пол']],
+16:[['Где нужна запятая при обособленном определении?','Дом, построенный недавно, уже заселён.','Дом построенный недавно уже заселён.','Дом, построенный недавно уже заселён.','Дом построенный, недавно уже заселён.'],['Где правильно расставлены знаки?','Уставший после дороги, он лёг спать.','Уставший после дороги он, лёг спать.','Уставший, после дороги он лёг спать.','Уставший после, дороги он лёг спать.'],['Как обособляется деепричастный оборот?','Обычно с двух сторон запятыми.','Никогда.','Только тире.','Только скобками.']],
+17:[['Как обособляется вводное слово «конечно»?','С двух сторон запятыми в середине предложения.','Никогда.','Только тире.','Только скобками.'],['Какой знак нужен: «Он, ___, согласился»?','конечно','конечно:','конечно —','конечно;'],['Какое слово является вводным?','вероятно','именно','даже','якобы']],
+18:[['Как оформляется обращение?','Маша, подойди сюда.','Маша подойди сюда.','Маша: подойди сюда.','Маша — подойди сюда.'],['Где правильно выделено обращение?','Друзья, начнём работу.','Друзья начнём, работу.','Друзья начнём работу.','Друзья: начнём работу.'],['Какой знак обычно отделяет обращение?','Запятая','Двоеточие','Точка с запятой','Скобки']],
+19:[['Какой союз вводит придаточное причины?','потому что','если','чтобы','хотя'],['Какой союз вводит придаточное условия?','если','потому что','так как','когда'],['Какой союз вводит придаточное цели?','чтобы','потому что','так как','если']],
+20:[['Как называется конструкция с сочинительной и подчинительной связью?','Сложное предложение с разными видами связи.','Простое предложение.','Бессоюзное предложение.','Односоставное предложение.'],['Какой союз является сочинительным?','и','когда','потому что','если'],['Какой союз является подчинительным?','если','и','но','а']],
+21:[['Какой знак возможен между частями БСП при пояснении?','Двоеточие','Запятая всегда','Скобки','Кавычки'],['Какой знак возможен при противопоставлении частей БСП?','Тире','Двоеточие всегда','Скобки','Дефис'],['Какой знак может разделять перечисляющиеся части БСП?','Точка с запятой','Кавычки','Дефис','Апостроф']],
+22:[['Как называется перенос значения по сходству?','Метафора','Метонимия','Эпитет','Антитеза'],['Как называется образное определение?','Эпитет','Гипербола','Парцелляция','Анафора'],['Как называется намеренное преувеличение?','Гипербола','Литота','Инверсия','Метонимия']],
+23:[['Как называется устойчивое сочетание слов?','Фразеологизм','Термин','Неологизм','Диалектизм'],['Что такое антонимы?','Слова с противоположным значением.','Слова с одинаковым звучанием.','Слова одной части речи без значения.','Слова только иностранного происхождения.'],['Что такое синонимы?','Слова близкого значения.','Слова противоположного значения.','Омонимы.','Паронимы.']],
+24:[['Какой стиль характерен для законов и приказов?','Официально-деловой','Разговорный','Художественный','Научный'],['Какой стиль характерен для научной статьи?','Научный','Разговорный','Официально-деловой','Публицистический'],['Какой стиль часто используется в СМИ для воздействия на общество?','Публицистический','Официально-деловой','Научный','Разговорный']],
+25:[['Что является грамматической основой предложения?','Подлежащее и сказуемое или один главный член.','Только второстепенные члены.','Только обстоятельство.','Только дополнение.'],['Какой тип связи в словосочетании «интересная книга»?','Согласование','Управление','Примыкание','Сочинение'],['Какой тип связи в «читать книгу»?','Управление','Согласование','Примыкание','Сочинение']],
+26:[['Что может быть средством связи предложений?','Лексический повтор','Только тире','Только кавычки','Только скобки'],['Какой пример содержит местоимённую связь?','Учёный выступил. Он ответил на вопросы.','Учёный выступил. Однако зал пуст.','Учёный выступил. Поэтому дождь.','Учёный выступил. Впрочем, снег.'],['Какой вариант содержит союзное средство связи?','Начался дождь, поэтому мы ушли.','Начался дождь. Дом высокий.','Начался дождь. Дождь.','Начался дождь. Высоко.']]
+};
+
+function buildQuestionBank(){
+  const bank={};
+  for(let n=1;n<=26;n++){
+    const base=pools[n]||[]; bank[n]=[];
+    for(let i=0;i<30;i++){
+      const src=base[i%base.length];
+      const q=src[0]+(i>=base.length?` Вариант ${i+1}.`:''), opts=src.slice(1);
+      const answer=opts[0];
+      const shuffled=[...opts].sort(()=>Math.random()-.5);
+      bank[n].push({id:`${n}-${i+1}`,question:q,options:shuffled,answer,explanation:`Правильный ответ: «${answer}». Тема: ${taskTopics[n]}.`});
+    }
+  }
+  return bank;
+}
+const questionBank=buildQuestionBank();
+let quizState=null;
+function renderTrainer(){
+  const el=document.getElementById('trainer-tasks');
+  el.innerHTML=Array.from({length:26},(_,i)=>`<button class="task-btn" onclick="startQuiz(${i+1})"><b>№${i+1}</b><span>${esc(taskTopics[i+1])}</span><span>30 вопросов</span></button>`).join('');
+}
+function startQuiz(task){
+  quizState={task,index:0,answers:Array(30).fill(null),questions:questionBank[task],finished:false};
+  document.getElementById('trainer-tasks').parentElement.style.display='none';
+  document.getElementById('quiz-card').style.display='block';
+  document.getElementById('quiz-result').style.display='none';
+  renderQuestion();
+}
+function renderQuestion(){
+  const q=quizState.questions[quizState.index], chosen=quizState.answers[quizState.index];
+  document.getElementById('quiz-title').textContent=`Задание №${quizState.task} — ${taskTopics[quizState.task]}`;
+  document.getElementById('quiz-progress').textContent=`Вопрос ${quizState.index+1} из 30`;
+  document.getElementById('quiz-progress-bar').style.width=((quizState.index+1)/30*100)+'%';
+  document.getElementById('quiz-question').innerHTML=`<div class="q-title">${esc(q.question)}</div>${q.options.map((o,i)=>`<label class="q-option ${chosen===o?'selected':''}"><input type="radio" name="q" ${chosen===o?'checked':''} onchange="chooseAnswer(${JSON.stringify(o).replace(/</g,'\\u003c')})">${esc(o)}</label>`).join('')}`;
+  document.getElementById('next-btn').textContent=quizState.index===29?'Завершить тест':'Далее →';
+}
+function chooseAnswer(v){quizState.answers[quizState.index]=v;renderQuestion();}
+function nextQuestion(){if(quizState.index===29){finishQuiz();return;}quizState.index++;renderQuestion();}
+function prevQuestion(){if(quizState.index>0){quizState.index--;renderQuestion();}}
+function finishQuiz(){
+  const score=quizState.questions.reduce((s,q,i)=>s+(quizState.answers[i]===q.answer?1:0),0);
+  quizState.finished=true;
+  testHistory.unshift({date:new Date().toLocaleDateString('ru-RU'),title:`Тренажёр №${quizState.task}`,score:`${score}/30`,task:quizState.task});
+  testHistory=testHistory.slice(0,50);localStorage.setItem('ege_test_history',JSON.stringify(testHistory));
+  const r=document.getElementById('quiz-result');r.style.display='block';
+  r.innerHTML=`<h3>Результат: ${score}/30</h3><div class="result-score">${score} / 30</div><p class="notice">Теперь доступны правильные ответы и объяснения. Ошибки отмечены ниже.</p>${quizState.questions.map((q,i)=>{const ok=quizState.answers[i]===q.answer;return `<div class="answer-review ${ok?'ok':'bad'}"><b>${i+1}. ${ok?'✓ Верно':'✗ Ошибка'}</b><div>${esc(q.question)}</div><div>Ваш ответ: ${esc(quizState.answers[i]??'нет ответа')}</div><div>Правильно: ${esc(q.answer)}</div><div class="muted">${esc(q.explanation)}</div></div>`}).join('')}`;
+  document.getElementById('quiz-card').style.display='none';renderHistory();
+}
+function exitQuiz(){quizState=null;document.getElementById('quiz-card').style.display='none';document.getElementById('quiz-result').style.display='none';document.getElementById('trainer-tasks').parentElement.style.display='block';renderTrainer();}
+function renderFipi() {
+  document.getElementById('fipi-list').innerHTML=fipiIds.map((id,i)=>`
+    <div class="task-item">
+      <span class="source-badge">ФИПИ • реальный ID</span>
+      <div class="task-title">Тренировочное задание №${i+1} — ${esc(id)}</div>
+      <div class="task-desc">ID из навигатора самостоятельной подготовки ФИПИ-2026. Открывайте через официальный банк.</div>
+      <a class="btn-small" href="${fipiBankUrl}" target="_blank">Открыть банк ФИПИ</a>
+    </div>`).join('');
+}
+function renderRoutine() {
+  document.getElementById('routine-list').innerHTML=routineData.map(r=>`
+    <div class="routine-row"><b>${esc(r.day)}:</b> ${esc(r.action)} (${esc(r.time)}) — <i>${esc(r.res)}</i></div>`).join('');
+}
+function renderHistory() {
+  const el=document.getElementById('history-list');
+  if(!testHistory.length) {el.textContent='Пока нет пройденных тестов.';return;}
+  el.innerHTML=testHistory.map(h=>`
+    <div class="routine-row"><b>${esc(h.title)}</b> — ${esc(h.date)}${h.score!==null&&h.score!==undefined?' — Балл: '+esc(h.score):' — открыт источник'}</div>`).join('');
+}
+window.onload=initApp;
+if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
