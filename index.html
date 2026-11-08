@@ -66,12 +66,13 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 @media(max-width:500px){.container{max-width:420px}.week-target{font-size:10px}}
 </style>
 <style id="ai-mobile-css">
-.ai-box{max-width:900px;margin:0 auto}.ai-row{display:flex;gap:10px;flex-wrap:wrap}.ai-input{flex:1;min-width:220px}.ai-chat{min-height:320px;max-height:55vh;overflow:auto;padding:14px;border-radius:14px;background:rgba(255,255,255,.04);margin-top:12px}.ai-msg{margin:10px 0;padding:12px 14px;border-radius:14px;line-height:1.55}.ai-user{background:rgba(80,140,255,.16);margin-left:12%}.ai-bot{background:rgba(255,255,255,.07);margin-right:8%}.ai-msg h1,.ai-msg h2,.ai-msg h3{margin:.35em 0}.ai-msg p{margin:.5em 0}.ai-msg ul,.ai-msg ol{padding-left:1.4em}.ai-msg blockquote{margin:.5em 0;padding-left:12px;border-left:3px solid rgba(255,255,255,.3)}.ai-msg code{background:rgba(0,0,0,.3);padding:2px 5px;border-radius:5px}.ai-msg pre{overflow:auto;background:rgba(0,0,0,.3);padding:10px;border-radius:10px}.ai-status{margin-top:8px;font-size:13px;opacity:.8}.ai-quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ai-box{max-width:900px;margin:0 auto}.ai-row{display:flex;gap:10px;flex-wrap:wrap}.ai-input{flex:1;min-width:220px}.ai-chat{min-height:300px;max-height:55vh;overflow:auto;padding:14px;border-radius:14px;background:rgba(255,255,255,.04);margin-top:12px}.ai-msg{margin:10px 0;padding:12px 14px;border-radius:14px;line-height:1.55}.ai-user{background:rgba(80,140,255,.16);margin-left:12%}.ai-bot{background:rgba(255,255,255,.07);margin-right:8%}.ai-msg h1,.ai-msg h2,.ai-msg h3{margin:.35em 0}.ai-msg p{margin:.5em 0}.ai-msg ul,.ai-msg ol{padding-left:1.4em}.ai-msg blockquote{margin:.5em 0;padding-left:12px;border-left:3px solid rgba(255,255,255,.3)}.ai-msg code{background:rgba(0,0,0,.3);padding:2px 5px;border-radius:5px}.ai-msg pre{overflow:auto;background:rgba(0,0,0,.3);padding:10px;border-radius:10px}.ai-status{margin-top:8px;font-size:13px;opacity:.8}.ai-quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 </style>
 </head>
 <body data-theme="dark">
 <div class="container">
-<header><h1>ЕГЭ Русский • 80+</h1><button class="icon-btn" onclick="toggleTheme()">☀️ / 🌙</button></header>
+<header><h1>ЕГЭ Русский • 80+</h1><button class="icon-btn" onclick="toggleTheme()">☀️ / 🌙</button><button class="tab" data-tab="ai" type="button">🤖 AI</button>
+</header>
 
 <div class="progress-card">
 <div class="progress-header"><span>Общий прогресс</span><span id="progress-text">0 / 28 недель</span></div>
@@ -84,7 +85,7 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 <button class="tab-btn" onclick="switchTab('routine',this)">Режим</button>
 <button class="tab-btn" onclick="switchTab('progress',this)">Прогресс</button>
 
-<button class="tab" data-tab="ai">🤖 AI</button>
+
 </div>
 
 <section id="tab-plan" class="tab-content active"><div id="weeks-list"></div></section>
@@ -384,47 +385,55 @@ function renderHistory() {
 window.addEventListener('keydown',e=>{if(e.key==='Escape'){closeNote();closeVideoModal();}});
 window.onload=initApp;
 </script>
-<script src="ege_local_ai_bridge/ai_widget.js"></script><section id="ai" class="panel">
+<script src="ege_local_ai_bridge/ai_widget.js"></script>
+
+<section id="ai" class="panel">
   <div class="card ai-box">
     <div class="title">🤖 AI-репетитор</div>
-    <div class="small">Подключение к твоему локальному Qwen 3 8B через AI bridge.</div>
+    <div class="small">Qwen 3 8B через твой локальный AI bridge.</div>
     <div class="ai-row" style="margin-top:12px">
-      <input id="aiUrl" class="ai-input" placeholder="URL AI-сервера, например https://....trycloudflare.com">
+      <input id="aiUrl" class="ai-input" placeholder="HTTPS URL Cloudflare Tunnel">
       <input id="aiToken" class="ai-input" type="password" placeholder="AI Token">
     </div>
     <div class="ai-row" style="margin-top:10px">
-      <button onclick="saveAISettings()">💾 Сохранить</button>
-      <button onclick="checkAIConnection()">🔌 Проверить</button>
-      <button onclick="clearAISettings()">🗑 Очистить</button>
+      <button type="button" onclick="saveAISettings()">💾 Сохранить</button>
+      <button type="button" onclick="checkAIConnection()">🔌 Проверить</button>
+      <button type="button" onclick="clearAISettings()">🗑 Очистить</button>
     </div>
     <div id="aiStatus" class="ai-status">AI не подключён</div>
     <div id="aiChat" class="ai-chat"></div>
     <div class="ai-quick">
-      <button onclick="aiQuick('Объясни мне правило русского языка простыми словами и дай 3 примера.')">📖 Объяснить правило</button>
-      <button onclick="aiQuick('Проанализируй мои типичные ошибки и скажи, что повторить в первую очередь.')">📊 Разобрать ошибки</button>
-      <button onclick="aiQuick('Составь мне мини-тест ЕГЭ по русскому языку на 5 вопросов без ответов до конца.')">🎯 Мини-тест</button>
+      <button type="button" onclick="aiQuick('Объясни правило русского языка простыми словами и дай 3 примера.')">📖 Объяснить правило</button>
+      <button type="button" onclick="aiQuick('Проанализируй мои типичные ошибки и скажи, что повторить.')">📊 Разобрать ошибки</button>
+      <button type="button" onclick="aiQuick('Составь мини-тест ЕГЭ по русскому на 5 вопросов без ответов до конца.')">🎯 Мини-тест</button>
     </div>
     <div class="ai-row" style="margin-top:10px">
       <textarea id="aiInput" class="ai-input" rows="3" placeholder="Напиши вопрос AI..."></textarea>
-      <button onclick="sendAIMessage()">Отправить</button>
+      <button type="button" onclick="sendAIMessage()">Отправить</button>
     </div>
   </div>
 </section>
 <script id="ai-mobile-js">
+(function(){
 const AI_URL_KEY='ege80_ai_url', AI_TOKEN_KEY='ege80_ai_token';
-function normalizeAIUrl(v){return (v||'').trim().replace(/\/+$/,'');}
-function setAIStatus(s){const e=document.getElementById('aiStatus');if(e)e.textContent=s;}
-function loadAISettings(){const u=localStorage.getItem(AI_URL_KEY)||'',t=localStorage.getItem(AI_TOKEN_KEY)||'';const a=document.getElementById('aiUrl'),b=document.getElementById('aiToken');if(a)a.value=u;if(b)b.value=t;if(u)setAIStatus('AI-сервер сохранён.');}
-function saveAISettings(){localStorage.setItem(AI_URL_KEY,normalizeAIUrl(document.getElementById('aiUrl').value));localStorage.setItem(AI_TOKEN_KEY,document.getElementById('aiToken').value.trim());setAIStatus('Настройки сохранены.');}
-function clearAISettings(){localStorage.removeItem(AI_URL_KEY);localStorage.removeItem(AI_TOKEN_KEY);document.getElementById('aiUrl').value='';document.getElementById('aiToken').value='';setAIStatus('Настройки очищены.');}
-function aiHeaders(){const t=localStorage.getItem(AI_TOKEN_KEY)||'';return {'Content-Type':'application/json','X-AI-Token':t,'Authorization':'Bearer '+t};}
-async function checkAIConnection(){saveAISettings();const u=normalizeAIUrl(localStorage.getItem(AI_URL_KEY));if(!u){setAIStatus('❌ Укажи URL AI-сервера.');return;}setAIStatus('⏳ Проверяю подключение...');try{const r=await fetch(u+'/api/status',{headers:aiHeaders()});if(!r.ok)throw new Error('HTTP '+r.status);setAIStatus('🟢 AI подключён.');}catch(e){setAIStatus('🔴 Ошибка подключения: '+e.message);}}
-function escapeAI(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function renderAI(md){let s=escapeAI(md);s=s.replace(/```([\s\S]*?)```/g,'<pre><code>$1</code></pre>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>').replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/^(?:- |• )(.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');return '<p>'+s+'</p>';}
-function addAIMessage(role,text){const c=document.getElementById('aiChat');if(!c)return;const d=document.createElement('div');d.className='ai-msg '+(role==='user'?'ai-user':'ai-bot');d.innerHTML=role==='user'?escapeAI(text):renderAI(text);c.appendChild(d);c.scrollTop=c.scrollHeight;}
-async function sendAIMessage(text){const input=document.getElementById('aiInput');text=(text||input.value||'').trim();if(!text)return;const u=normalizeAIUrl(localStorage.getItem(AI_URL_KEY)||document.getElementById('aiUrl').value),t=(localStorage.getItem(AI_TOKEN_KEY)||document.getElementById('aiToken').value||'').trim();if(!u){setAIStatus('❌ Сначала укажи URL AI-сервера.');return;}addAIMessage('user',text);input.value='';setAIStatus('⏳ Qwen думает...');try{const r=await fetch(u+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json','X-AI-Token':t,'Authorization':'Bearer '+t},body:JSON.stringify({message:text})});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||('HTTP '+r.status));addAIMessage('assistant',d.response||d.message?.content||'Пустой ответ.');setAIStatus('🟢 Готово.');}catch(e){addAIMessage('assistant','**Ошибка подключения**\n\n'+e.message);setAIStatus('🔴 AI недоступен.');}}
-function aiQuick(t){sendAIMessage(t);}
-document.addEventListener('DOMContentLoaded',()=>{loadAISettings();const i=document.getElementById('aiInput');if(i)i.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendAIMessage();}});});
+function $id(x){return document.getElementById(x)}
+function norm(v){return (v||'').trim().replace(/\/+$/,'')}
+window.setAIStatus=function(s){const e=$id('aiStatus');if(e)e.textContent=s}
+window.saveAISettings=function(){localStorage.setItem(AI_URL_KEY,norm($id('aiUrl').value));localStorage.setItem(AI_TOKEN_KEY,($id('aiToken').value||'').trim());setAIStatus('Настройки сохранены.')}
+window.clearAISettings=function(){localStorage.removeItem(AI_URL_KEY);localStorage.removeItem(AI_TOKEN_KEY);$id('aiUrl').value='';$id('aiToken').value='';setAIStatus('Настройки очищены.')}
+function headers(){const t=localStorage.getItem(AI_TOKEN_KEY)||'';return {'Content-Type':'application/json','X-AI-Token':t,'Authorization':'Bearer '+t}}
+window.checkAIConnection=async function(){saveAISettings();const u=norm(localStorage.getItem(AI_URL_KEY));if(!u)return setAIStatus('❌ Укажи URL AI-сервера.');setAIStatus('⏳ Проверяю...');try{const r=await fetch(u+'/api/status',{headers:headers()});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||('HTTP '+r.status));setAIStatus('🟢 AI подключён.')}catch(e){setAIStatus('🔴 Ошибка: '+e.message)}}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function md(s){let x=esc(s);x=x.replace(/```([\s\S]*?)```/g,'<pre><code>$1</code></pre>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>').replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/^(?:- |• )(.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');return '<p>'+x+'</p>'}
+function msg(role,text){const c=$id('aiChat');if(!c)return;const d=document.createElement('div');d.className='ai-msg '+(role==='user'?'ai-user':'ai-bot');d.innerHTML=role==='user'?esc(text):md(text);c.appendChild(d);c.scrollTop=c.scrollHeight}
+window.sendAIMessage=async function(text){const inp=$id('aiInput');text=(text||inp.value||'').trim();if(!text)return;const u=norm(localStorage.getItem(AI_URL_KEY)||$id('aiUrl').value);if(!u){setAIStatus('❌ Сначала укажи URL AI-сервера.');return}msg('user',text);inp.value='';setAIStatus('⏳ Qwen думает...');try{const r=await fetch(u+'/api/chat',{method:'POST',headers:headers(),body:JSON.stringify({message:text})});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||('HTTP '+r.status));msg('assistant',d.response||d.message?.content||'Пустой ответ.');setAIStatus('🟢 Готово.')}catch(e){msg('assistant','**Ошибка подключения**\n\n'+e.message);setAIStatus('🔴 AI недоступен.')}}
+window.aiQuick=function(t){sendAIMessage(t)}
+function initAI(){const u=localStorage.getItem(AI_URL_KEY)||'';const t=localStorage.getItem(AI_TOKEN_KEY)||'';if($id('aiUrl'))$id('aiUrl').value=u;if($id('aiToken'))$id('aiToken').value=t;const inp=$id('aiInput');if(inp)inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendAIMessage()}})}
+// Explicit tab handler: works even if the site's original tab JS does not know about AI.
+document.addEventListener('click',function(e){const b=e.target.closest&&e.target.closest('.tab[data-tab="ai"]');if(!b)return;e.preventDefault();e.stopPropagation();document.querySelectorAll('.panel').forEach(p=>{p.style.display=(p.id==='ai'?'block':'none');p.classList.toggle('active',p.id==='ai')});document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));b.classList.add('active');if(location.hash!=='#ai')history.replaceState(null,'','#ai')},true);
+function openAIFromHash(){if(location.hash==='#ai'){const b=document.querySelector('.tab[data-tab="ai"]');if(b)b.click()}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){initAI();openAIFromHash()});else{initAI();openAIFromHash()}
+})();
 </script>
 </body>
 </html>
