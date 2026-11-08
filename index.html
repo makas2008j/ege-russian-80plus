@@ -43,6 +43,20 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 .source-badge{display:inline-block;font-size:10px;padding:3px 6px;border-radius:6px;background:rgba(16,185,129,.13);color:var(--success);font-weight:800;margin-bottom:7px}
 .routine-row{background:var(--bg);padding:9px;border-radius:9px;margin-bottom:7px;border:1px solid var(--border);font-size:12px}
 .notice{font-size:11px;color:var(--muted);line-height:1.5;margin-top:8px}
+.error-form{display:grid;gap:8px;margin-top:12px}.error-input,.error-select,.error-textarea{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--border);padding:10px;border-radius:10px;font-size:13px}.error-textarea{min-height:78px;resize:vertical}.error-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.error-item{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:11px;margin-top:8px}.error-item.resolved{opacity:.62}.error-meta{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:10px;color:var(--muted);margin-bottom:6px}.error-task{font-weight:900;color:var(--accent)}.error-title{font-size:13px;font-weight:800;margin-bottom:5px}.error-body{font-size:12px;line-height:1.45;color:var(--text)}.error-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.error-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.stat{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:9px;text-align:center}.stat b{display:block;font-size:16px}.stat span{font-size:9px;color:var(--muted)}
+@media(max-width:500px){.error-grid{grid-template-columns:1fr}}
+
+
+.trainer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.task-chip{background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:12px;padding:12px 6px;font-weight:900;font-size:12px;cursor:pointer}.task-chip:hover{border-color:var(--accent);background:var(--hover)}.task-chip small{display:block;color:var(--muted);font-weight:600;margin-top:3px}.quiz-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:12px}.quiz-progress{height:8px;background:var(--border);border-radius:8px;overflow:hidden;margin:8px 0 14px}.quiz-progress>div{height:100%;background:var(--accent)}.quiz-q{font-size:15px;line-height:1.55;font-weight:800;margin:12px 0}.quiz-context{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:11px;font-size:12px;line-height:1.5;margin-bottom:10px}.answer-option{display:block;width:100%;text-align:left;background:var(--bg);color:var(--text);border:1px solid var(--border);padding:12px;border-radius:11px;margin:7px 0;font-size:13px;cursor:pointer}.answer-option.selected{border-color:var(--accent);background:rgba(59,130,246,.12)}.quiz-actions{display:flex;gap:8px;margin-top:14px}.quiz-actions button{flex:1}.result-score{text-align:center;font-size:30px;font-weight:900;color:var(--accent);padding:8px}.result-item{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:11px;margin-top:8px}.result-item.good{border-left:3px solid var(--success)}.result-item.bad{border-left:3px solid #ef4444}.result-item b{font-size:12px}.result-item p{font-size:12px;line-height:1.45;margin-top:5px}.result-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}@media(max-width:500px){.trainer-grid{grid-template-columns:repeat(4,1fr)}.quiz-actions{flex-direction:column}}
+
+.note-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:1200;overflow:auto;padding:18px 12px}
+.note-content{max-width:760px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;min-height:calc(100vh - 36px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.note-head{position:sticky;top:0;background:var(--card);z-index:2;padding:14px;display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);font-weight:900}
+.note-body{padding:16px}
+.note-kicker{color:var(--accent);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.note-title{font-size:20px;font-weight:900;margin-bottom:14px}
+.note-section{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:10px}
+.note-section h4{font-size:13px;margin-bottom:8px}.note-section p,.note-section li{font-size:12px;line-height:1.55}.note-section ul{padding-left:18px}.note-rule{font-size:14px;font-weight:900;color:var(--accent);line-height:1.4}.note-example{margin-top:8px;padding:9px 10px;border-radius:10px;background:rgba(59,130,246,.09);font-size:12px;line-height:1.5}.note-danger{border-left:3px solid #ef4444}.note-tip{border-left:3px solid var(--success)}
 .video-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:1000;justify-content:center;align-items:center;padding:12px}
 .video-content{background:var(--card);width:100%;max-width:760px;border-radius:18px;overflow:hidden;border:1px solid var(--border)}
 .video-head{padding:12px 14px;display:flex;justify-content:space-between;border-bottom:1px solid var(--border);font-weight:800}
@@ -51,12 +65,8 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 .video-foot{padding:12px;display:flex;gap:6px;flex-wrap:wrap;background:var(--bg)}
 @media(max-width:500px){.container{max-width:420px}.week-target{font-size:10px}}
 </style>
-
-<style>
-.ai-shell{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:12px}.ai-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:4px 2px 12px}.ai-title{font-size:18px;font-weight:900}.ai-subtitle{font-size:11px;color:var(--muted);margin-top:3px}.ai-status{font-size:10px;font-weight:800;padding:6px 9px;border-radius:999px;white-space:nowrap}.ai-status.online{background:rgba(16,185,129,.15);color:var(--success)}.ai-status.offline{background:rgba(239,68,68,.13);color:#f87171}.ai-tools{display:flex;gap:6px;overflow:auto;padding-bottom:8px}.ai-tool{flex:0 0 auto;background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:8px 10px;font-size:11px;font-weight:800}.ai-tool.active{background:var(--accent);border-color:var(--accent);color:#fff}.ai-mode{display:none}.ai-mode.active{display:block}.ai-messages{height:430px;overflow:auto;padding:8px 2px}.ai-msg{display:flex;margin:8px 0}.ai-msg.user{justify-content:flex-end}.ai-bubble{max-width:88%;padding:10px 12px;border-radius:14px;background:var(--bg);border:1px solid var(--border);font-size:13px;line-height:1.55}.ai-msg.user .ai-bubble{background:var(--accent);border-color:var(--accent);color:#fff}.ai-bubble h2,.ai-bubble h3,.ai-bubble h4{margin:8px 0 5px;line-height:1.25}.ai-bubble p{margin:5px 0}.ai-bubble ul,.ai-bubble ol{padding-left:22px;margin:6px 0}.ai-bubble li{margin:3px 0}.ai-bubble code{background:rgba(127,127,127,.18);padding:2px 5px;border-radius:5px;font-family:ui-monospace,monospace}.ai-code{background:#0b1020;color:#e5e7eb;padding:10px;border-radius:10px;overflow:auto;white-space:pre-wrap}.ai-bubble blockquote{border-left:3px solid var(--accent);padding-left:9px;color:var(--muted);margin:7px 0}.ai-spacer{height:4px}.ai-compose{display:flex;gap:7px;margin-top:7px}.ai-compose textarea,.ai-form input,.ai-form textarea,.ai-form select{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:11px;padding:10px;font-size:13px;outline:none}.ai-compose textarea{resize:none}.ai-send{width:46px;border:0;border-radius:11px;background:var(--accent);color:#fff;font-size:20px;font-weight:900}.ai-hint{font-size:10px;color:var(--muted);padding:5px 2px}.ai-welcome{text-align:center;padding:55px 20px;color:var(--muted)}.ai-welcome-icon{font-size:42px;margin-bottom:10px}.ai-welcome h3{color:var(--text);margin-bottom:7px}.ai-form{display:grid;gap:10px;padding:5px 0}.ai-form label{font-size:11px;font-weight:800;color:var(--muted);display:grid;gap:5px}.ai-form .btn-main{margin-top:2px}.ai-result{margin-top:12px;background:var(--bg);border:1px solid var(--border);border-radius:13px;padding:12px;font-size:13px;line-height:1.55;min-height:30px}.ai-progress-card{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}.ai-stat{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}.ai-stat b{display:block;font-size:20px;color:var(--accent)}.ai-stat span{font-size:10px;color:var(--muted)}.ai-footer{display:flex;justify-content:space-between;gap:8px;margin-top:10px;font-size:9px;color:var(--muted);align-items:center}.ai-link{border:0;background:none;color:var(--muted);text-decoration:underline;font-size:10px;padding:3px}@media(max-width:500px){.ai-messages{height:55vh;min-height:360px}.ai-bubble{max-width:94%}.ai-head{align-items:flex-start}.ai-progress-card{grid-template-columns:repeat(3,1fr)}}
-</style>
-<style>
-.ai-test{margin-top:12px;background:var(--bg);border:1px solid var(--border);border-radius:15px;padding:14px}.ai-test-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:12px}.ai-test-progress{font-size:11px;color:var(--muted)}.ai-test-title{font-size:14px;font-weight:900}.ai-test-question{font-size:14px;line-height:1.6;font-weight:700;margin:12px 0}.ai-option{display:block;width:100%;text-align:left;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:11px;padding:11px;margin:8px 0;font-size:13px;cursor:pointer}.ai-option:hover{border-color:var(--accent)}.ai-option.selected{border-color:var(--accent);background:rgba(59,130,246,.13)}.ai-option.correct{border-color:var(--success);background:rgba(16,185,129,.13)}.ai-option.wrong{border-color:#ef4444;background:rgba(239,68,68,.10)}.ai-test-actions{display:flex;gap:8px;margin-top:12px}.ai-test-actions button{flex:1}.ai-test-feedback{margin-top:12px;padding:11px;border-radius:11px;background:var(--card);border:1px solid var(--border);font-size:12px;line-height:1.5}.ai-test-result{text-align:center;padding:18px 8px}.ai-test-score{font-size:32px;font-weight:900;color:var(--accent);margin:8px}.ai-test-review{margin-top:12px;text-align:left}.ai-review-item{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:10px;margin:7px 0;font-size:12px;line-height:1.5}.ai-review-item b{display:block;margin-bottom:4px}
+<style id="ai-mobile-css">
+.ai-box{max-width:900px;margin:0 auto}.ai-row{display:flex;gap:10px;flex-wrap:wrap}.ai-input{flex:1;min-width:220px}.ai-chat{min-height:320px;max-height:55vh;overflow:auto;padding:14px;border-radius:14px;background:rgba(255,255,255,.04);margin-top:12px}.ai-msg{margin:10px 0;padding:12px 14px;border-radius:14px;line-height:1.55}.ai-user{background:rgba(80,140,255,.16);margin-left:12%}.ai-bot{background:rgba(255,255,255,.07);margin-right:8%}.ai-msg h1,.ai-msg h2,.ai-msg h3{margin:.35em 0}.ai-msg p{margin:.5em 0}.ai-msg ul,.ai-msg ol{padding-left:1.4em}.ai-msg blockquote{margin:.5em 0;padding-left:12px;border-left:3px solid rgba(255,255,255,.3)}.ai-msg code{background:rgba(0,0,0,.3);padding:2px 5px;border-radius:5px}.ai-msg pre{overflow:auto;background:rgba(0,0,0,.3);padding:10px;border-radius:10px}.ai-status{margin-top:8px;font-size:13px;opacity:.8}.ai-quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 </style>
 </head>
 <body data-theme="dark">
@@ -72,36 +82,24 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 <button class="tab-btn active" onclick="switchTab('plan',this)">План</button>
 <button class="tab-btn" onclick="switchTab('trainer',this)">Тренажер</button>
 <button class="tab-btn" onclick="switchTab('routine',this)">Режим</button>
-<button class="tab-btn" onclick="switchTab('progress',this)">Прогресс</button><button id="ai-tab-btn" class="tab-btn" onclick="switchTab('ai',this);aiInit()">🤖 ИИ</button>
+<button class="tab-btn" onclick="switchTab('progress',this)">Прогресс</button>
 </div>
 
 <section id="tab-plan" class="tab-content active"><div id="weeks-list"></div></section>
 
 <section id="tab-trainer" class="tab-content">
 <div class="card-section">
-<h3>🎯 Тренировка по заданиям</h3>
-<p class="notice">Здесь можно получить именно отдельные тренировочные задания, а не целый вариант. Вопросы генерирует твой локальный Qwen 3 8B. Это авторская тренировка, не официальный ФИПИ.</p>
-<div class="ai-form">
-<label>№ задания <select id="trainer-task-num"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option></select></label>
-<label>Количество <select id="trainer-task-count"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option><option value="30">30</option></select></label>
-<label>Тема <input id="trainer-task-topic" placeholder="Например: правописание корней"></label>
-<label>Сложность <select id="trainer-task-diff"><option>средняя</option><option>лёгкая</option><option>сложная</option></select></label>
-<button class="btn-main" onclick="trainerGenerateTask()">🎯 Сгенерировать тренировку</button>
+<h3>🎯 Тренажёр ЕГЭ</h3>
+<p class="notice">Авторский тренажёр: по 30 вопросов на каждое задание №1–26. Ответы открываются только после завершения теста.</p>
+<div class="trainer-grid" id="trainer-task-grid"></div>
 </div>
-<div id="trainer-task-result" class="ai-result"></div>
-<div id="trainer-ai-test" class="ai-test" style="display:none"></div>
-</div>
-
+<div class="card-section" id="trainer-quiz" style="display:none"></div>
+<div class="card-section" id="trainer-result" style="display:none"></div>
 <div class="card-section">
-<h3>🌐 Реальные варианты</h3>
-<p class="notice">Полные реальные варианты из внешнего банка. Они открываются отдельно и не заменяют тренировку выше.</p>
+<h3>📚 Полные варианты</h3>
+<p class="notice">Если нужен целый вариант ЕГЭ, можно открыть внешний банк отдельно.</p>
 <select id="trainer-select" class="select-box"></select>
-<button class="btn-main" onclick="openRealVariant()">Открыть реальный вариант</button>
-</div>
-<div class="card-section">
-<h3>🏛 Банк ФИПИ-2026</h3>
-<p class="notice">Ссылки на официальный банк заданий ФИПИ.</p>
-<div id="fipi-list" class="task-list"></div>
+<button class="btn-main" onclick="openRealVariant()">Открыть полный вариант</button>
 </div>
 </section>
 
@@ -109,64 +107,33 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 <section id="tab-progress" class="tab-content">
 <div class="card-section">
 <h3>📊 Мой прогресс</h3>
-<div id="progress-stats" class="ai-progress-card"></div>
+<p class="notice">Здесь хранятся твои личные ошибки. Добавляй их после каждого варианта — это будет твой журнал повторения.</p>
+<div class="error-stats">
+<div class="stat"><b id="errors-total">0</b><span>Всего ошибок</span></div>
+<div class="stat"><b id="errors-open">0</b><span>Нужно повторить</span></div>
+<div class="stat"><b id="errors-resolved">0</b><span>Уже понял</span></div>
 </div>
-<div class="card-section">
-<h3>📝 Мои ошибки</h3>
-<p class="notice">Добавляй ошибки вручную после решения заданий. Они сохраняются в браузере и учитываются ИИ при анализе прогресса.</p>
-<div class="ai-form">
-<label>№ задания <select id="error-task-num"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option></select></label>
-<label>Что было неправильно <textarea id="error-mistake" rows="3" placeholder="Например: в слове выбрал НН, но не заметил зависимое слово"></textarea></label>
-<label>Правильное правило / ответ <textarea id="error-correct" rows="3" placeholder="Например: полное причастие с зависимым словом — НН"></textarea></label>
-<label>Статус <select id="error-status"><option value="repeat">🔴 Нужно повторить</option><option value="understood">🟢 Уже понял</option></select></label>
-<button class="btn-main" onclick="addUserError()">➕ Добавить ошибку</button>
+<div class="error-form">
+<div class="error-grid">
+<select id="error-task" class="error-select"></select>
+<select id="error-status" class="error-select"><option value="open">Нужно повторить</option><option value="resolved">Уже понял</option></select>
 </div>
+<input id="error-title" class="error-input" placeholder="Что именно было ошибочно? Например: не знаю, когда НЕ пишется слитно">
+<textarea id="error-note" class="error-textarea" placeholder="Запиши правильное правило, свой разбор или подсказку для себя..."></textarea>
+<button class="btn-main" onclick="addError()">➕ Добавить ошибку</button>
 </div>
-<div class="card-section">
-<h3>История ошибок</h3>
-<div id="user-errors-list"></div>
+<div id="errors-list"></div>
 </div>
-<div class="card-section"><h3>История тестов</h3><div id="history-list">Пока нет тестов.</div></div>
-</section>
-<section id="tab-ai" class="tab-content">
-<div class="ai-shell">
-  <div class="ai-head">
-    <div><div class="ai-title">🤖 ИИ-репетитор</div><div class="ai-subtitle">Qwen 3 8B • работает локально на твоём ПК</div></div>
-    <div id="ai-status" class="ai-status offline">● Проверка...</div>
-  </div>
-  <div class="ai-tools">
-    <button class="ai-tool active" onclick="aiMode('chat',this)">💬 Чат</button>
-    <button class="ai-tool" onclick="aiMode('error',this)">📝 Разбор ошибки</button>
-    <button class="ai-tool" onclick="aiMode('task',this)">🎯 Задание</button>
-    <button class="ai-tool" onclick="aiMode('progress',this)">📊 Прогресс</button>
-    <button class="ai-tool" onclick="aiMode('rule',this)">📚 Правило</button>
-  </div>
-  <div id="ai-mode-chat" class="ai-mode active">
-    <div id="ai-messages" class="ai-messages"></div>
-    <div class="ai-compose"><textarea id="ai-input" rows="2" placeholder="Напиши вопрос по русскому языку..." onkeydown="aiEnter(event)"></textarea><button class="ai-send" onclick="aiSend()">➤</button></div>
-    <div class="ai-hint">Enter — отправить • Shift+Enter — новая строка</div>
-  </div>
-  <div id="ai-mode-error" class="ai-mode"><div class="ai-form">
-    <label>№ задания <input id="ai-error-task" type="number" min="1" max="26" placeholder="Например, 9"></label>
-    <label>Что написал ты <textarea id="ai-error-student" rows="3" placeholder="Твой ответ или ход решения"></textarea></label>
-    <label>Правильный ответ <textarea id="ai-error-correct" rows="2" placeholder="Если знаешь"></textarea></label>
-    <label>Условие / контекст <textarea id="ai-error-context" rows="4" placeholder="Вставь условие задания"></textarea></label>
-    <button class="btn-main" onclick="aiAnalyzeError()">Разобрать ошибку</button>
-  </div><div id="ai-error-result" class="ai-result"></div></div>
-  <div id="ai-mode-task" class="ai-mode"><div class="ai-form">
-      <label>№ задания <select id="ai-task-num"><option>1</option><option>2</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option></select></label>
-      <label>Количество вопросов <select id="ai-task-count"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option><option value="30">30</option></select></label>
-      <label>Тема <input id="ai-task-topic" placeholder="Например: правописание корней"></label>
-      <label>Сложность <select id="ai-task-diff"><option>средняя</option><option>лёгкая</option><option>сложная</option></select></label>
-      <button class="btn-main" onclick="aiGenerateTask()">🎯 Сгенерировать тест</button>
-    </div><div id="ai-task-result" class="ai-result"></div><div id="ai-test" class="ai-test" style="display:none"></div></div>
-  <div id="ai-mode-progress" class="ai-mode"><div id="ai-progress-card" class="ai-progress-card"></div><button class="btn-main" onclick="aiAnalyzeProgress()">📊 Проанализировать мой прогресс</button><div id="ai-progress-result" class="ai-result"></div></div>
-  <div id="ai-mode-rule" class="ai-mode"><div class="ai-form"><label>Что объяснить <textarea id="ai-rule" rows="4" placeholder="Например: Н и НН в причастиях"></textarea></label><button class="btn-main" onclick="aiExplainRule()">Объяснить правило</button></div><div id="ai-rule-result" class="ai-result"></div></div>
-  <div class="ai-footer"><button onclick="aiClearHistory()" class="ai-link">Очистить историю чата</button><span>История хранится только в браузере.</span></div>
-</div>
+<div class="card-section"><h3>📝 История тестов</h3><div id="history-list">Пока нет тестов.</div></div>
 </section>
 </div>
 
+
+<div class="note-modal" id="noteModal" onclick="if(event.target===this) closeNote()">
+<div class="note-content">
+<div class="note-head"><span id="noteModalTitle">Конспект</span><button class="icon-btn" onclick="closeNote()">✕</button></div>
+<div class="note-body" id="noteBody"></div>
+</div></div>
 <div class="video-modal" id="videoModal">
 <div class="video-content">
 <div class="video-head"><span id="modalVideoTitle">Видеоурок</span><button class="icon-btn" onclick="closeVideoModal()">✕</button></div>
@@ -188,12 +155,13 @@ let completedWeeks = JSON.parse(localStorage.getItem('ege_completed_weeks') || '
 let testHistory = JSON.parse(localStorage.getItem('ege_test_history') || '[]');
 let currentVideoWeek = null;
 let localVideos = JSON.parse(localStorage.getItem('ege_local_videos') || '{}');
+let userErrors = JSON.parse(localStorage.getItem('ege_user_errors') || '[]');
 
 const fipiBankUrl = 'https://fipi.ru/ege/otkrytyy-bank-zadaniy-ege';
 const sdamgiaBase = 'https://rus-ege.sdamgia.ru/';
 
 function initApp() {
-  renderWeeks(); renderTrainer(); renderFipi(); renderRoutine(); renderHistory(); updateProgress();
+  renderWeeks(); renderTrainer(); renderFipi(); renderRoutine(); renderHistory(); renderErrorTaskSelect(); renderErrors(); updateProgress();
 }
 function switchTab(id,btn) {
   document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
@@ -219,8 +187,9 @@ function renderWeeks() {
           <b>Видео:</b> ${video==='Есть'?'✅':'—'}
         </div>
         <div class="week-actions">
-          ${w.yt ? `<button class="btn-small" onclick="openVideo(${i})">▶ Видео</button>` : ''}
-          <a class="btn-small btn-secondary" href="${sdamgiaBase}" target="_blank">📚 Банк Решу ЕГЭ</a>
+          <button class="btn-small" onclick="openNote(${i})">📖 Конспект</button>
+          ${renderVideoLinks(w.yt)}
+          <a class="btn-small btn-secondary" href="${sdamgiaBase}" target="_blank" rel="noopener">📚 Банк Решу ЕГЭ</a>
           <a class="btn-small btn-secondary" href="${fipiBankUrl}" target="_blank">🏛 ФИПИ</a>
           <label class="checkbox-container"><input type="checkbox" ${checked} onchange="toggleWeek(${i},this)"><span class="custom-checkbox"></span><span>Пройдено</span></label>
         </div>
@@ -236,22 +205,59 @@ function updateProgress() {
   document.getElementById('progress-bar').style.width=`${total ? done/total*100 : 0}%`;
 }
 
-function extractYoutube(s) {
-  const m=(s||'').match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
-  return m ? `https://www.youtube.com/embed/${m[1]}` : '';
+function extractYoutubeAll(s) {
+  const out=[]; const re=/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/g; let m;
+  while((m=re.exec(s||''))) out.push(`https://www.youtube.com/watch?v=${m[1]}`);
+  return [...new Set(out)];
 }
-function openVideo(i) {
-  currentVideoWeek=i;
-  document.getElementById('modalVideoTitle').textContent=rawExcelPlan[i].period;
-  document.getElementById('videoModal').style.display='flex';
-  playYouTube();
+function renderVideoLinks(s) {
+  const urls=extractYoutubeAll(s);
+  if(!urls.length) return '';
+  return urls.map((u,i)=>`<a class="btn-small btn-secondary" href="${u}" target="_blank" rel="noopener">▶ YouTube${urls.length>1?' '+(i+1):''}</a>`).join('');
 }
-function playYouTube() {
-  const url=extractYoutube(rawExcelPlan[currentVideoWeek]?.yt);
-  document.getElementById('videoWrap').innerHTML=url
-    ? `<iframe src="${url}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
-    : '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#fff;padding:20px;text-align:center">Для этой недели видео не задано в таблице.</div>';
+const noteData = [
+{title:'База + №9: корни',main:'Начинаем с основы: части речи, состав слова и орфографическая зоркость. Для №9 главное — отличать проверяемые гласные от корней с чередованием.',rule:'Не подбирай проверочное слово, пока не убедился, что корень не чередующийся.',algo:['Выдели корень.','Определи: проверяемая гласная или чередование.','Для чередования найди условие выбора.','Проверь исключения.'],examples:['загореть — корень -гор-: без ударения пишем О.','касаться — корень -кас-/-кос-: суффикс -а- даёт А.'],mistakes:['проверять чередующийся корень однокоренным словом','забывать исключения'],tip:'В №9 сначала ищи знакомое чередование — это быстрее, чем искать проверочное слово.'},
+{title:'№10–11: приставки и суффиксы',main:'В №10 тренируем приставки, в №11 — суффиксы разных частей речи. Важнее всего видеть морфему и условие выбора буквы.',rule:'Сначала определи часть слова и часть речи, затем применяй правило.',algo:['Определи часть речи.','Выдели приставку/суффикс.','Проверь правило именно для этой морфемы.','Сверься с исключениями.'],examples:['безвкусный — перед звонким В пишем З.','ключик — суффикс -ик- сохраняет И при изменении слова: ключика.'],mistakes:['ориентироваться только на звучание','путать суффикс с окончанием'],tip:'Для №11 полезно изменить слово: если гласная исчезает, это часто помогает определить суффикс.'},
+{title:'№12–13: глаголы, причастия, НЕ',main:'Разбираем написание окончаний, суффиксов и НЕ с глаголами и причастиями.',rule:'Для НЕ сначала определяй часть речи и наличие зависимых слов/противопоставления.',algo:['Определи часть речи.','Для глагола проверь правило НЕ.','Для причастия ищи зависимые слова и противопоставление.','Проверь исключения.'],examples:['не сделал — НЕ с глаголом раздельно.','непрочитанная книга — слитное написание возможно без противопоставления и зависимых слов.'],mistakes:['автоматически писать НЕ раздельно со всеми причастиями','путать краткое причастие с прилагательным'],tip:'Краткие причастия обычно пишутся с НЕ раздельно: работа не выполнена.'},
+{title:'№14–15: слитное/раздельное, Н/НН',main:'Учимся различать части речи и применять условия слитного, раздельного написания и Н/НН.',rule:'Н/НН нельзя решать только по внешнему виду слова — сначала установи часть речи и способ образования.',algo:['Определи часть речи.','Найди суффикс и зависимые слова.','Проверь приставку/полную форму.','Сверь исключения.'],examples:['жареная картошка — прилагательное без зависимых слов.','жаренная на масле картошка — есть зависимое слово, поэтому НН.'],mistakes:['не замечать зависимое слово','путать прилагательное и причастие'],tip:'В №15 всегда задавай вопрос: «От чего образовано слово и есть ли зависимое слово?»'},
+{title:'№7: морфологические нормы',main:'Задание проверяет правильные формы слов: род, число, падеж, степени сравнения и формы глаголов.',rule:'Норма определяется литературным языком, а не тем, как слово чаще звучит в разговорной речи.',algo:['Определи часть речи.','Определи требуемую форму.','Проверь род/число/падеж или форму слова.','Учитывай слова-исключения.'],examples:['договоры — нормативная форма множественного числа.','их — без окончания и без формы «ихний».'],mistakes:['ориентироваться на разговорную речь','путать формы множественного числа'],tip:'Составь собственный список из 20 слов, где чаще всего ошибаешься.'},
+{title:'№8: грамматические нормы',main:'Ищем ошибки в согласовании, управлении, построении словосочетаний и предложений.',rule:'Сначала найди главное слово, затем проверь, какую форму зависимого слова оно требует.',algo:['Найди грамматическую основу.','Определи связь слов.','Проверь согласование/управление.','Исправь только нормативным вариантом.'],examples:['оплатить проезд — без предлога.','благодаря усилиям — форма дательного падежа.'],mistakes:['путать управление и согласование','выбирать вариант по привычному звучанию'],tip:'Если сомневаешься, проговори словосочетание с вопросом от главного слова.'},
+{title:'№16–18: базовая пунктуация',main:'Основы постановки знаков препинания: однородные члены, обособления и сложные предложения.',rule:'Знак препинания объясняется синтаксической конструкцией, а не паузой при чтении.',algo:['Найди грамматические основы.','Определи границы конструкций.','Найди союзы и вводные слова.','Поставь знак по правилу.'],examples:['Солнце взошло, и стало светло — две основы, соединённые союзом.'],mistakes:['ставить запятую по паузе','не замечать общую часть сложного предложения'],tip:'Сначала рисуй структуру предложения: [основа], [основа].'},
+{title:'№19–21: сложные предложения',main:'Работаем с СПП, БСП, союзами и знаками внутри сложных конструкций.',rule:'Главный навык — видеть границы частей и отношения между ними.',algo:['Найди все грамматические основы.','Раздели предложение на части.','Определи союз/смысловую связь.','Проверь специальные случаи постановки знаков.'],examples:['Я знаю, что ты придёшь — придаточное изъяснительное.'],mistakes:['терять границу придаточного','путать двоеточие и тире в БСП'],tip:'Чем длиннее предложение, тем полезнее сначала выписать только основы.'},
+{title:'Повтор №7–15',main:'Неделя закрепления: не изучаем новые правила, а собираем личную таблицу ошибок.',rule:'Повтор должен быть активным: правило → 3–5 примеров → задания → разбор ошибки.',algo:['Собери ошибки по номерам.','Выбери 3 слабые темы.','Повтори правила.','Реши 20–30 целевых заданий.'],examples:['Ошибка → правило → свой пример → повторное задание.'],mistakes:['перечитывать теорию без практики','повторять только лёгкие темы'],tip:'Работай прежде всего с тем, что уже было ошибкой.'},
+{title:'Повтор №16–21',main:'Закрепляем пунктуацию через схемы предложений и разбор собственных ошибок.',rule:'Каждую ошибку объясняй названием конструкции.',algo:['Найди основы.','Назови конструкцию.','Поставь знак.','Сформулируй правило одним предложением.'],examples:['[ ], и [ ] → проверь, есть ли общий элемент.'],mistakes:['запоминать знак без причины','не проверять вторую часть предложения'],tip:'Если не можешь объяснить знак словами — правило ещё не выучено.'},
+{title:'№1–6 и №22–26',main:'Переходим к заданиям на понимание текста, средства выразительности и анализ.',rule:'Ответ должен опираться на текст, а не на впечатление от него.',algo:['Прочитай вопрос.','Найди опорный фрагмент текста.','Сверь все варианты.','Убери варианты с неточным утверждением.'],examples:['Сначала доказательство из текста, затем выбор ответа.'],mistakes:['отвечать «по смыслу вообще»','не дочитывать формулировку'],tip:'Подчёркивай в тексте слова, которые подтверждают ответ.'},
+{title:'Вся тестовая часть',main:'Собираем задания в единый экзаменационный алгоритм и тренируем время.',rule:'Сначала стабильность и точность, затем скорость.',algo:['Реши вариант без подсказок.','Отметь сомнения.','Разбери только ошибки.','Повтори правила и реши похожие задания.'],examples:['Ошибка №9 → правило №9 → 5 аналогичных заданий.'],mistakes:['смотреть ответ слишком рано','не записывать причину ошибки'],tip:'Веди журнал ошибок — это главный инструмент роста на этом этапе.'},
+{title:'Сочинение: структура',main:'Осваиваем композицию сочинения: проблема, комментарий, позиция автора, собственное отношение и вывод.',rule:'Каждый абзац должен выполнять свою функцию.',algo:['Сформулируй проблему.','Найди два примера-комментария.','Объясни связь между ними.','Сформулируй позицию автора.','Добавь своё отношение и аргументацию.'],examples:['Проблема → пример 1 + пояснение → пример 2 + пояснение → связь → позиция.'],mistakes:['пересказывать текст вместо комментария','писать примеры без пояснения'],tip:'Проверяй сочинение по критериям, а не по ощущению «вроде нормально».'},
+{title:'Проблема, позиция автора, примеры',main:'Учимся точно формулировать проблему и комментировать авторскую мысль.',rule:'Пример сам по себе балла не даёт: важно объяснить, что он показывает.',algo:['Сформулируй вопрос-проблему.','Выбери первый пример.','Объясни его значение.','Выбери второй пример.','Объясни связь.'],examples:['Автор показывает ..., потому что ...'],mistakes:['слишком широкая проблема','пересказ вместо анализа'],tip:'После каждого примера задавай себе вопрос: «Что именно он доказывает?»'},
+{title:'Связь примеров, аргументация',main:'Усиливаем комментарий и учимся видеть причинно-следственные, противопоставительные и сопоставительные связи.',rule:'Связь между примерами должна быть названа и объяснена.',algo:['Определи отношение примеров.','Назови связь.','Объясни, что меняется или подтверждается.'],examples:['Сначала автор показывает ..., затем противопоставляет это ..., поэтому ...'],mistakes:['просто поставить два примера рядом','назвать связь без пояснения'],tip:'Используй связки: «сначала», «затем», «противопоставляя», «сопоставляя», «это показывает». '},
+{title:'Речь, логика, грамотность',main:'Финишная редактура сочинения: логика, точность слов, грамматика и орфография.',rule:'Сильное содержание теряет баллы, если текст написан небрежно.',algo:['Проверь абзацы.','Проверь связь предложений.','Убери повторы.','Проверь орфографию и пунктуацию.','Проверь объём.'],examples:['Повтор слова → замена местоимением/синонимом, если смысл сохраняется.'],mistakes:['проверять только запятые','не перечитывать текст целиком'],tip:'Оставь 7–10 минут на отдельную редактуру сочинения.'},
+{title:'Варианты целиком',main:'Тренируем экзаменационный режим: полный вариант, строгий тайминг, журнал ошибок.',rule:'Пробник — это диагностика, а не просто оценка.',algo:['Реши вариант по времени.','Запиши все сомнения.','Разбери ошибки.','Выдели 2–3 темы для повторения.'],examples:['75 баллов → ошибки №8 и №19 → две точечные тренировки.'],mistakes:['смотреть только итоговый балл','не разбирать правильные, но случайно угаданные ответы'],tip:'Сохраняй дату и результат каждого пробника.'},
+{title:'Слабые темы',main:'Индивидуальная неделя: убираем самые частые ошибки.',rule:'Приоритет — частота ошибки × цена ошибки.',algo:['Посмотри журнал.','Выбери 3 темы.','Повтори только их.','Реши целевой блок.','Проверь, исчезла ли ошибка.'],examples:['3 ошибки в №8 → повтор норм → 20 заданий → повторная проверка.'],mistakes:['распыляться на всё сразу','решать новые темы вместо слабых'],tip:'Если ошибка повторилась трижды — её нужно вынести в отдельную карточку.'},
+{title:'Тест + сочинение',main:'Соединяем тестовую часть и сочинение в один рабочий цикл.',rule:'На экзамене важна выносливость: качество должно сохраняться до конца.',algo:['Тестовая часть.','Проверка.','Сочинение.','Редактура.','Разбор.'],examples:['Ставь таймер и работай без телефона и подсказок.'],mistakes:['слишком много времени на одном задании','оставлять сочинение без проверки'],tip:'Тренируй переход от теста к сочинению отдельно.'},
+{title:'Закрепление',main:'Цель — стабильные 80+: минимизируем случайные ошибки и повторяем только слабые места.',rule:'Стабильность важнее рекордного результата одного пробника.',algo:['2–3 варианта.','Сравни ошибки.','Найди повторяющиеся.','Закрой пробелы.'],examples:['80 → 74 → 81: ищем причины просадки, а не радуемся только 81.'],mistakes:['считать один высокий результат гарантией','забывать старые ошибки'],tip:'Следи за средним результатом последних 3–5 вариантов.'},
+{title:'Стабильность',main:'Закрепляем рабочий темп и не добавляем лишнюю теорию.',rule:'Новая теория нужна только там, где есть доказанный пробел.',algo:['Пробник.','Журнал ошибок.','Точечный повтор.','Повторный пробник.'],examples:['Ошибка → конспект → 10 заданий → контроль.'],mistakes:['учить всё подряд','перегружать себя перед каждым пробником'],tip:'Сохраняй привычный режим сна и занятий.'},
+{title:'Стабильность',main:'Продолжаем точечную отработку и контроль качества.',rule:'Каждая новая ошибка должна попадать в журнал.',algo:['Вариант.','Ошибки.','Классификация.','Повтор.'],examples:['Орфография / пунктуация / речь / сочинение — разделяй ошибки.'],mistakes:['не классифицировать ошибки','не возвращаться к старым'],tip:'Раз в неделю просматривай весь журнал.'},
+{title:'Сложные темы',main:'Разбираем самые трудные конструкции, которые продолжают снижать результат.',rule:'Сложное правило нужно свести к короткому алгоритму.',algo:['Назови проблему.','Сделай схему.','Разбери пример.','Реши серию аналогичных заданий.'],examples:['Сложная пунктуация → схема основы → союз → знак.'],mistakes:['зубрить без понимания структуры','решать только один пример'],tip:'Сделай собственную мини-карточку на каждое трудное правило.'},
+{title:'Экзаменационный режим',main:'Переходим на почти полную имитацию экзамена.',rule:'Условия пробника должны максимально напоминать экзамен.',algo:['Подготовь время и материалы.','Реши вариант целиком.','Напиши сочинение.','Проверь.'],examples:['Телефон убран, таймер включён, перерывы минимальны.'],mistakes:['останавливать таймер','подсматривать ответы'],tip:'Главная цель — не рекорд, а предсказуемый результат.'},
+{title:'Финишная отработка',main:'Работаем только с тем, что реально мешает получить 80+.',rule:'На финише качество повторения важнее количества новой информации.',algo:['Посмотри журнал.','Выбери 3 слабых места.','Отработай.','Сделай пробник.'],examples:['2 повторяющиеся ошибки → два коротких блока вместо часа новой теории.'],mistakes:['начинать большие новые темы','учиться до ночи'],tip:'Не жертвуй сном ради дополнительного варианта.'},
+{title:'Финиш',main:'Убираем последние систематические ошибки и сохраняем спокойный темп.',rule:'Последние дни — для уверенности, а не для перегруза.',algo:['Лёгкий повтор.','Журнал ошибок.','Один контрольный блок.','Отдых.'],examples:['Список исключений и собственных ошибок — лучший материал для финального повторения.'],mistakes:['решать десятки вариантов подряд','учить всё заново'],tip:'Не меняй рабочую стратегию в последний момент.'},
+{title:'Лёгкое повторение',main:'Поддерживаем знания без перегрузки.',rule:'Повторяем знакомое и точечно закрываем пробелы.',algo:['Конспекты.','Журнал ошибок.','Небольшой блок заданий.','Отдых.'],examples:['20–30 заданий вместо полного марафона.'],mistakes:['паниковать из-за одной ошибки','учить новую сложную тему'],tip:'Сон и спокойствие сейчас важнее дополнительного часа занятий.'},
+{title:'Последняя неделя',main:'Никакой новой теории. Только спокойное повторение алгоритмов и собственных ошибок.',rule:'Последняя неделя нужна для сохранения формы.',algo:['Повтори журнал.','Просмотри конспекты.','Сделай лёгкий вариант.','Отдохни и выспись.'],examples:['Перед экзаменом перечитай только свои карточки и алгоритмы.'],mistakes:['ночная зубрёжка','полный марафон накануне'],tip:'Цель — прийти на экзамен свежим и уверенным.'}
+];
+function openNote(i){
+ const n=noteData[i]||{title:rawExcelPlan[i]?.topics||'Конспект',main:'Конспект по теме недели.',rule:'Повторяй правило и закрепляй его практикой.',algo:[],examples:[],mistakes:[],tip:'Работай с журналом ошибок.'};
+ document.getElementById('noteModalTitle').textContent=`${rawExcelPlan[i]?.period||''} — Конспект`;
+ document.getElementById('noteBody').innerHTML=`<div class="note-kicker">ЕГЭ • Русский язык</div><div class="note-title">${esc(n.title)}</div>
+ <div class="note-section"><h4>🧠 Главное</h4><p>${esc(n.main)}</p></div>
+ <div class="note-section"><h4>📌 Правило</h4><div class="note-rule">${esc(n.rule)}</div></div>
+ <div class="note-section"><h4>⚡ Алгоритм</h4><ol>${n.algo.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></div>
+ <div class="note-section"><h4>✏️ Примеры</h4>${n.examples.map(x=>`<div class="note-example">${esc(x)}</div>`).join('')}</div>
+ <div class="note-section note-danger"><h4>⚠️ Типичные ошибки</h4><ul>${n.mistakes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+ <div class="note-section note-tip"><h4>💡 Совет</h4><p>${esc(n.tip)}</p></div>`;
+ document.getElementById('noteModal').style.display='block'; document.body.style.overflow='hidden';
 }
+function closeNote(){document.getElementById('noteModal').style.display='none';document.body.style.overflow='';}
 function saveLocalVideo(e) {
   const f=e.target.files?.[0]; if(!f || currentVideoWeek===null) return;
   const reader=new FileReader();
@@ -260,19 +266,65 @@ function saveLocalVideo(e) {
 }
 function closeVideoModal() { document.getElementById('videoModal').style.display='none'; document.getElementById('videoWrap').innerHTML=''; }
 
-function renderTrainer() {
-  const s=document.getElementById('trainer-select');
-  s.innerHTML=realVariants.map(v=>`<option value="${v.id}">${esc(v.title)}</option>`).join('');
+const taskNames={1:'Смысл текста',2:'Связь предложений',3:'Лексика',4:'Ударения',5:'Паронимы',6:'Лексические нормы',7:'Морфология',8:'Грамматика',9:'Корни',10:'Приставки',11:'Суффиксы',12:'Глаголы',13:'НЕ/НИ',14:'Слитно/раздельно',15:'Н/НН',16:'Пунктуация',17:'Обособление',18:'Знаки препинания',19:'СПП',20:'БСП',21:'Смешанная пунктуация',22:'Средства связи',23:'Позиция автора',24:'Языковые средства',25:'Лексические значения',26:'Сочинение' };
+let quizState={task:1,index:0,answers:[],questions:[]};
+const pools={
+1:[['Какова основная мысль текста?','Автор показывает, что результат зависит только от случая.','Автор объясняет, почему систематическая работа помогает добиться результата.','Автор отрицает значение обучения.','Автор сравнивает два литературных произведения.',1],['Какое утверждение соответствует содержанию?','Герой полностью отказался от своей цели.','Описанное событие произошло случайно и не имело последствий.','Автор связывает успех с последовательными действиями.','В тексте говорится только о прошлом.',2],['Какое значение имеет слово «систематический» в тексте?','случайный','регулярный и последовательный','быстрый','необязательный',1]],
+2:[['Какое предложение должно быть первым после данного?','Следовательно, вывод уже очевиден.','Именно поэтому следующий шаг оказывается важным.','Но это совсем другая тема.','Наконец, автор завершает рассказ.',1],['Какое средство связи использовано?','повтор ключевого слова','междометие','рифма','звукопись',0],['Какое слово лучше всего связывает предложения?','однако','потому что','например','вчера',0]],
+3:[['Выберите значение слова «аргумент».','случайное событие','довод, приводимый для доказательства','описание внешности','эмоциональная реакция',1],['В каком варианте слово употреблено в прямом значении?','золотые руки','золотое кольцо','золотая осень','золотой характер',1],['Какое слово является многозначным?','карандаш','лист','понедельник','кислород',1]],
+4:[['Укажите слово с правильным ударением.','дОговор','договОр','красИвее','тОрты',1],['Выберите нормативный вариант.','каталОг','кАталог','жалюзИ','облегчИть',0],['Правильно поставлено ударение в слове:','диспансЕр','диспАнсер','диспансер','диспансёр',0]],
+5:[['Выберите правильную пару паронимов.','эффектный — эффективный','адресат — адресант','враждебный — вражеский','все варианты верны',3],['Какое слово подходит: «... человек, добившийся цели»?','эффектный','эффективный','эффективностный','эффектовый',1],['Какое слово подходит: «... костюм»?','эффективный','эффектный','эффектовый','эффективностный',1]],
+6:[['Как правильно: «... большую роль»?','играть роль','иметь роль','исполнять роль','делать роль',0],['Как правильно: «... решение»?','принять решение','принять решениея','принести решение','приделать решение',0],['Как правильно: «... внимание»?','уделить внимание','обратить внимание','оказать внимание','сделать внимание',0]],
+7:[['Выберите нормативную форму.','более красивее','более красивый','самый красивейший','самый красивее',1],['Нормативная форма слова:','ихний','их','евонный','ихов',1],['Выберите правильную форму множественного числа.','договоры','договора','договорья','договорыа',0]],
+8:[['Укажите грамматически правильное продолжение: «Изучая правило,...»','мне стало понятнее.','я лучше запомнил его.','правило было выучено мной.','возникает интерес.',1],['Выберите правильное согласование.','пять учеников пришло','пять учеников пришли','пять учеников пришёл','пять учеников приходил',1],['Правильно построено сочетание:','согласно приказа','согласно приказу','согласно приказом','согласно приказ',1]],
+9:[['Выберите слово с чередующейся гласной в корне.','загореть','проверить','молоко','берег',0],['Где пишется А?','предл..гать','изл..жение','р..сток','к..саться',0],['Выберите правильное написание.','каснуться','коснуться','косатнуться','касотнуться',1]],
+10:[['В каком слове пишется приставка ПРЕ-?','прекрасный','прибыть','присесть','приклеить',0],['В каком слове пишется З?','безвкусный','бесвкусный','бесзвучный','взбить',0],['Выберите слово с приставкой ПРИ-.','прервать','преграда','приоткрыть','преступить',2]],
+11:[['В каком слове пишется суффикс -ИК-?','ключик','дворник','грузчик','переводчик',0],['Выберите правильное написание.','ночёвка','ночовка','ночивка','ночёвка',0],['В каком слове пишется -ЕЦ-?','красавец','боец','умелец','все варианты',3]],
+12:[['Выберите правильную форму глагола.','лягте','ложите','езжай','поезжайте',0],['Нормативная форма:','побежу','побегу','побеждаю','побежду',1],['Правильно образована форма:','махает','махаит','махаеть','махает',0]],
+13:[['В каком варианте НЕ пишется слитно?','неправда','не готов','небольшой','ненастье',1],['Выберите правильное написание.','никому не известный факт','никому неизвестный факт','не кому известный','никому неизвесный',1],['Где НЕ пишется раздельно?','неправильный','небрежный','не готов','невежда',2]],
+14:[['Выберите слитное написание.','вследствие дождя','в течение часа','в продолжение дня','несмотря на дождь',0],['Как пишется «(не)смотря на» в значении уступки?','несмотря на','не смотря на','не-смотря на','несмотря-на',0],['Правильно:','в следствии по делу','вследствии по делу','вследствие по делу','в следствие по делу',2]],
+15:[['В каком слове пишется НН?','кожаный','ветреный','оловянный','жареный',2],['Выберите правильное написание.','воспитанный человек','воспитаный человек','воспитаннный человек','воспитаный',0],['НН пишется в слове:','глиняный','серебряный','временный','кожаный',2]],
+16:[['Где нужна запятая?','Когда наступил вечер, мы вернулись домой.','Когда наступил вечер мы вернулись домой.','Когда, наступил вечер мы вернулись домой.','Когда наступил, вечер мы вернулись домой.',0],['Выберите правильную пунктуацию.','Я знал что ты придёшь.','Я знал, что ты придёшь.','Я, знал что ты придёшь.','Я знал что, ты придёшь.',1],['Где знаки расставлены верно?','Если будет время, я зайду.','Если будет время я, зайду.','Если, будет время я зайду.','Если будет, время я зайду.',0]],
+17:[['Какое предложение требует обособления определения?','Покрытая снегом дорога блестела.','Дорога, покрытая снегом, блестела.','Снег покрывал дорогу.','Дорога блестела зимой.',1],['Где верно обособлено обстоятельство?','Он шёл не торопясь.','Он, не торопясь, шёл домой.','Он не торопясь, шёл домой.','Он не, торопясь шёл домой.',1],['Выберите правильный вариант.','Уставший после дороги он лёг спать.','Уставший после дороги, он лёг спать.','Уставший, после дороги он лёг спать.','Уставший после, дороги он лёг спать.',1]],
+18:[['Где нужна запятая перед И?','Солнце село и стало темно.','Солнце село, и стало темно.','Солнце, село и стало темно.','Солнце село и, стало темно.',1],['Выберите верный вариант.','Он вошёл и сел.','Он вошёл, и сел.','Он, вошёл и сел.','Он вошёл и, сел.',0],['Где знаки верны?','Я открыл окно, и в комнату вошёл ветер.','Я открыл окно и, в комнату вошёл ветер.','Я открыл, окно и ветер.','Я открыл окно и в комнату, вошёл ветер.',0]],
+19:[['Какое предложение является сложноподчинённым?','Я пришёл и сел.','Я пришёл, потому что меня позвали.','Я пришёл домой.','Приди домой.',1],['Выберите правильный союз.','Я остался дома, потому что шёл дождь.','Я остался дома, и потому что шёл дождь.','Я остался дома потому, и что шёл дождь.','Я остался дома потому что, шёл дождь.',0],['Где запятая обязательна?','Я знаю что ты прав.','Я знаю, что ты прав.','Я, знаю что ты прав.','Я знаю что, ты прав.',1]],
+20:[['Какое предложение является бессоюзным сложным?','Солнце взошло, и стало тепло.','Солнце взошло: стало тепло.','Когда взошло солнце, стало тепло.','Солнце взошло потому что стало тепло.',1],['Какой знак нужен: «Я оглянулся ___ никого»?',':','—',';','.',0],['Выберите правильный вариант.','Я понял: спорить бессмысленно.','Я понял, спорить бессмысленно.','Я понял — потому что спорить.','Я понял спорить: бессмысленно.',0]],
+21:[['Выберите правильную пунктуацию.','Он улыбнулся, но ничего не сказал.','Он улыбнулся но, ничего не сказал.','Он, улыбнулся но ничего не сказал.','Он улыбнулся но ничего, не сказал.',0],['Где тире уместно?','Учиться — значит работать.','Учиться значит, работать.','Учиться — значит, работать.','Учиться значит — работать.',0],['Выберите верный вариант.','Я хотел уйти, однако остался.','Я хотел уйти однако, остался.','Я, хотел уйти однако остался.','Я хотел, уйти однако остался.',0]],
+22:[['Какое слово является средством связи?','поэтому','дом','быстрый','книга',0],['Чем можно заменить «однако»?','следовательно','но','поэтому','например',1],['Какое средство указывает на следствие?','зато','следовательно','хотя','будто',1]],
+23:[['Как лучше сформулировать позицию автора?','Автор просто рассказывает о событии.','Автор считает, что настойчивость помогает преодолеть трудности.','В тексте есть много слов.','Автор приводит несколько предложений.',1],['Что такое позиция автора?','перечень героев','отношение автора к проблеме','заголовок','план текста',1],['Выберите корректную формулировку.','Автор заставляет читателя.','Автор убеждён в необходимости бережного отношения к природе.','Автор вообще о природе.','Автор рассказывает.',1]],
+24:[['Какое средство выразительности использовано: «лес уснул»?','олицетворение','эпитет','гипербола','метафора',0],['«Золотая осень» — это','эпитет','антитеза','градация','анафора',0],['«Я ждал целую вечность» — это','литота','гипербола','метонимия','сравнение',1]],
+25:[['Какое значение имеет слово «деликатный»?','грубый','тактичный, осторожный','быстрый','громкий',1],['«Непоколебимый» означает','сомневающийся','твёрдый, устойчивый','случайный','скрытый',1],['«Тщательный» означает','поверхностный','внимательный и подробный','быстрый','небрежный',1]],
+26:[['Какой элемент обязателен в сочинении ЕГЭ?','случайный список слов','формулировка проблемы','пересказ всего текста','биография автора',1],['Что должно подтверждать позицию автора?','примеры-иллюстрации из текста','только название текста','случайная цитата','личные данные автора',0],['Что важно для логики сочинения?','связность переходов между частями','максимум абзацев','отсутствие аргументов','повтор одной мысли',0]]
+};
+function buildQuestions(task){
+ const base=pools[task]||[]; const out=[];
+ for(let i=0;i<30;i++){
+   const b=base[i%base.length];
+   const shift=Math.floor(i/base.length)%b[4+0] || 0;
+   out.push({q:`${b[0]} (вариант ${i+1})`,opts:b.slice(1,5),a:b[5] ?? b[4],ex:`Правильный ответ: «${b[(b[5]??b[4])+1]}». Закрепи правило и добавь ошибку в журнал, если допустил её.`});
+ }
+ return out;
 }
-function openRealVariant() {
-  const id=Number(document.getElementById('trainer-select').value);
-  const v=realVariants.find(x=>x.id===id);
-  if(v) {
-    testHistory.unshift({date:new Date().toLocaleDateString('ru-RU'),title:v.title,score:null,url:v.url});
-    testHistory=testHistory.slice(0,50); localStorage.setItem('ege_test_history',JSON.stringify(testHistory)); renderHistory();
-    window.open(v.url,'_blank','noopener');
-  }
+function renderTrainer(){
+ const grid=document.getElementById('trainer-task-grid');
+ grid.innerHTML=Array.from({length:26},(_,i)=>`<button class="task-chip" onclick="startTrainer(${i+1})">№${i+1}<small>${esc(taskNames[i+1])}</small></button>`).join('');
+ const s=document.getElementById('trainer-select'); s.innerHTML=realVariants.map(v=>`<option value="${v.id}">${esc(v.title)}</option>`).join('');
 }
+function startTrainer(task){quizState={task,index:0,answers:Array(30).fill(null),questions:buildQuestions(task)}; document.getElementById('trainer-task-grid').parentElement.style.display='none';document.getElementById('trainer-result').style.display='none';document.getElementById('trainer-quiz').style.display='block';renderQuestion();}
+function renderQuestion(){
+ const q=quizState.questions[quizState.index], n=quizState.index+1, selected=quizState.answers[quizState.index];
+ document.getElementById('trainer-quiz').innerHTML=`<div class="quiz-top"><b>№${quizState.task} · ${esc(taskNames[quizState.task])}</b><button class="btn-small btn-secondary" onclick="exitTrainer()">✕ Выйти</button></div><div class="quiz-progress"><div style="width:${n/30*100}%"></div></div><div class="notice">Вопрос ${n} из 30</div><div class="quiz-q">${esc(q.q)}</div>${q.opts.map((o,i)=>`<button class="answer-option ${selected===i?'selected':''}" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}. ${esc(o)}</button>`).join('')}<div class="quiz-actions"><button class="btn-small btn-secondary" ${n===1?'disabled':''} onclick="prevQuestion()">← Назад</button><button class="btn-small" onclick="nextQuestion()">${n===30?'Завершить':'Далее →'}</button></div>`;
+}
+function selectAnswer(i){quizState.answers[quizState.index]=i;renderQuestion();}
+function prevQuestion(){if(quizState.index>0){quizState.index--;renderQuestion();}}
+function nextQuestion(){if(quizState.index<29){quizState.index++;renderQuestion();}else finishTrainer();}
+function finishTrainer(){
+ let score=0; const errors=[]; quizState.questions.forEach((q,i)=>{if(quizState.answers[i]===q.a)score++;else errors.push({i,q,chosen:quizState.answers[i]});});
+ const task=quizState.task; testHistory.unshift({date:new Date().toLocaleDateString('ru-RU'),title:`Тренажёр №${task}`,score:`${score}/30`,url:null});testHistory=testHistory.slice(0,50);localStorage.setItem('ege_test_history',JSON.stringify(testHistory));
+ document.getElementById('trainer-quiz').style.display='none';const r=document.getElementById('trainer-result');r.style.display='block';r.innerHTML=`<div class="quiz-top"><b>Результат №${task}</b><button class="btn-small btn-secondary" onclick="exitTrainer()">← К заданиям</button></div><div class="result-score">${score} / 30</div><div class="notice" style="text-align:center">${score>=27?'Отлично!':score>=24?'Хороший результат.':score>=18?'Нужно закрепить тему.':'Разбери ошибки и повтори конспект.'}</div><div style="margin-top:12px">${errors.length?errors.map(e=>`<div class="result-item bad"><b>Вопрос ${e.i+1}: ${esc(e.q.q)}</b><p>Правильный ответ: <b>${String.fromCharCode(65+e.q.a)}. ${esc(e.q.opts[e.q.a])}</b></p><p>${esc(e.q.ex)}</p><div class="result-actions"><button class="btn-small" onclick='addTrainerError(${JSON.stringify({task,title:`Вопрос ${e.i+1}: ${e.q.q}`,note:e.q.ex}).replace(/'/g,"&#39;")})'>➕ В мои ошибки</button></div></div>`).join(''):'<div class="notice">Все 30 ответов правильные 🎉</div>'}</div>`;renderHistory();}
+function addTrainerError(x){userErrors.unshift({id:Date.now(),task:String(x.task),status:'open',title:x.title,note:x.note,date:new Date().toLocaleDateString('ru-RU')});localStorage.setItem('ege_user_errors',JSON.stringify(userErrors));alert('Ошибка добавлена в журнал.');renderErrors();}
+function exitTrainer(){document.getElementById('trainer-quiz').style.display='none';document.getElementById('trainer-result').style.display='none';document.getElementById('trainer-task-grid').parentElement.style.display='block';}
+function openRealVariant(){const id=Number(document.getElementById('trainer-select').value);const v=realVariants.find(x=>x.id===id);if(v){testHistory.unshift({date:new Date().toLocaleDateString('ru-RU'),title:v.title,score:null,url:v.url});testHistory=testHistory.slice(0,50);localStorage.setItem('ege_test_history',JSON.stringify(testHistory));renderHistory();window.open(v.url,'_blank','noopener');}}
 function renderFipi() {
   document.getElementById('fipi-list').innerHTML=fipiIds.map((id,i)=>`
     <div class="task-item">
@@ -286,60 +338,67 @@ function renderRoutine() {
   document.getElementById('routine-list').innerHTML=routineData.map(r=>`
     <div class="routine-row"><b>${esc(r.day)}:</b> ${esc(r.action)} (${esc(r.time)}) — <i>${esc(r.res)}</i></div>`).join('');
 }
+function renderErrorTaskSelect(){
+  const s=document.getElementById('error-task'); if(!s) return;
+  s.innerHTML=Array.from({length:26},(_,i)=>`<option value="${i+1}">№${i+1} — задание ЕГЭ</option>`).join('');
+}
+function addError(){
+  const task=document.getElementById('error-task').value;
+  const status=document.getElementById('error-status').value;
+  const title=document.getElementById('error-title').value.trim();
+  const note=document.getElementById('error-note').value.trim();
+  if(!title && !note){alert('Напиши хотя бы, в чём была ошибка.');return;}
+  userErrors.unshift({id:Date.now(),task,status,title:title||'Ошибка без названия',note,date:new Date().toLocaleDateString('ru-RU')});
+  localStorage.setItem('ege_user_errors',JSON.stringify(userErrors));
+  document.getElementById('error-title').value=''; document.getElementById('error-note').value='';
+  renderErrors();
+}
+function toggleError(id){
+  const e=userErrors.find(x=>x.id===id); if(!e)return; e.status=e.status==='resolved'?'open':'resolved';
+  localStorage.setItem('ege_user_errors',JSON.stringify(userErrors)); renderErrors();
+}
+function deleteError(id){
+  if(!confirm('Удалить эту ошибку?')) return;
+  userErrors=userErrors.filter(x=>x.id!==id); localStorage.setItem('ege_user_errors',JSON.stringify(userErrors)); renderErrors();
+}
+function renderErrors(){
+  const el=document.getElementById('errors-list'); if(!el)return;
+  const total=userErrors.length, open=userErrors.filter(x=>x.status!=='resolved').length, resolved=total-open;
+  document.getElementById('errors-total').textContent=total; document.getElementById('errors-open').textContent=open; document.getElementById('errors-resolved').textContent=resolved;
+  if(!total){el.innerHTML='<div class="notice">Пока ошибок нет. После пробника или тренировки добавляй сюда задания, в которых ошибся. Так ты получишь личный журнал ошибок.</div>';return;}
+  el.innerHTML=userErrors.map(e=>`<div class="error-item ${e.status==='resolved'?'resolved':''}">
+    <div class="error-meta"><span class="error-task">№${esc(e.task)}</span><span>${esc(e.date)} · ${e.status==='resolved'?'закрыта':'нужно повторить'}</span></div>
+    <div class="error-title">${esc(e.title)}</div>
+    ${e.note?`<div class="error-body">${esc(e.note).replace(/\n/g,'<br>')}</div>`:''}
+    <div class="error-actions"><button class="btn-small" onclick="toggleError(${e.id})">${e.status==='resolved'?'↩ Вернуть':'✓ Отметить понятой'}</button><button class="btn-small btn-secondary" onclick="deleteError(${e.id})">🗑 Удалить</button></div>
+  </div>`).join('');
+}
 function renderHistory() {
   const el=document.getElementById('history-list');
   if(!testHistory.length) {el.textContent='Пока нет пройденных тестов.';return;}
   el.innerHTML=testHistory.map(h=>`
     <div class="routine-row"><b>${esc(h.title)}</b> — ${esc(h.date)}${h.score!==null&&h.score!==undefined?' — Балл: '+esc(h.score):' — открыт источник'}</div>`).join('');
 }
-
-function getUserErrors(){return JSON.parse(localStorage.getItem('ege_user_errors')||'[]');}
-function saveUserErrors(items){localStorage.setItem('ege_user_errors',JSON.stringify(items));}
-function renderProgressStats(){
-  const el=document.getElementById('progress-stats'); if(!el)return;
-  const weeks=Object.values(completedWeeks).filter(Boolean).length;
-  const errors=getUserErrors();
-  const repeat=errors.filter(e=>e.status==='repeat').length;
-  const tests=testHistory.length;
-  el.innerHTML=`<div class="ai-stat"><b>${weeks}</b><span>из 28 недель</span></div><div class="ai-stat"><b>${repeat}</b><span>повторить</span></div><div class="ai-stat"><b>${tests}</b><span>тестов</span></div>`;
-}
-function renderUserErrors(){
-  const el=document.getElementById('user-errors-list'); if(!el)return;
-  const errors=getUserErrors();
-  if(!errors.length){el.innerHTML='<div class="notice">Пока нет добавленных ошибок.</div>';renderProgressStats();return;}
-  el.innerHTML=errors.map((e,i)=>`<div class="task-item">
-    <div class="source-badge">Задание №${esc(e.task)} • ${e.status==='repeat'?'🔴 Нужно повторить':'🟢 Уже понял'}</div>
-    <div class="task-desc"><b>Ошибка:</b> ${esc(e.mistake)}</div>
-    <div class="task-desc"><b>Правило:</b> ${esc(e.correct)}</div>
-    <div class="week-actions"><button class="btn-small btn-secondary" onclick="toggleUserError(${i})">${e.status==='repeat'?'Отметить как понял':'Вернуть в повторение'}</button><button class="btn-small" onclick="deleteUserError(${i})">Удалить</button></div>
-  </div>`).join('');
-  renderProgressStats();
-}
-function addUserError(){
-  const task=document.getElementById('error-task-num')?.value;
-  const mistake=(document.getElementById('error-mistake')?.value||'').trim();
-  const correct=(document.getElementById('error-correct')?.value||'').trim();
-  const status=document.getElementById('error-status')?.value||'repeat';
-  if(!mistake){alert('Напиши, что было неправильно.');return;}
-  const errors=getUserErrors();
-  errors.unshift({id:Date.now(),task,mistake,correct:correct||'Не указано',status,date:new Date().toLocaleDateString('ru-RU')});
-  saveUserErrors(errors.slice(0,200));
-  document.getElementById('error-mistake').value=''; document.getElementById('error-correct').value='';
-  renderUserErrors();
-}
-function toggleUserError(i){const errors=getUserErrors();if(!errors[i])return;errors[i].status=errors[i].status==='repeat'?'understood':'repeat';saveUserErrors(errors);renderUserErrors();}
-function deleteUserError(i){const errors=getUserErrors();errors.splice(i,1);saveUserErrors(errors);renderUserErrors();}
-function trainerGenerateTask(){
-  const map=[['trainer-task-num','ai-task-num'],['trainer-task-count','ai-task-count'],['trainer-task-topic','ai-task-topic'],['trainer-task-diff','ai-task-diff']];
-  map.forEach(([from,to])=>{const a=document.getElementById(from),b=document.getElementById(to);if(a&&b)b.value=a.value;});
-  window.aiTestTarget='trainer-ai-test';
-  aiInit();
-  aiGenerateTask();
-}
-const originalRenderWeeks=renderWeeks;
-function initAppWithProgress(){initApp();renderUserErrors();renderProgressStats();}
-window.onload=initAppWithProgress;
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){closeNote();closeVideoModal();}});
+window.onload=initApp;
 </script>
-<script src="ai_bridge.js"></script>
+<script src="ege_local_ai_bridge/ai_widget.js"></script><script id="ai-mobile-js">
+const AI_URL_KEY='ege80_ai_url',AI_TOKEN_KEY='ege80_ai_token';
+function normalizeAIUrl(v){return(v||'').trim().replace(/\/+$/,'')}
+function loadAISettings(){const u=localStorage.getItem(AI_URL_KEY)||'',t=localStorage.getItem(AI_TOKEN_KEY)||'';document.getElementById('aiUrl').value=u;document.getElementById('aiToken').value=t;if(u)setAIStatus('AI-сервер сохранён.')}
+function saveAISettings(){localStorage.setItem(AI_URL_KEY,normalizeAIUrl(document.getElementById('aiUrl').value));localStorage.setItem(AI_TOKEN_KEY,document.getElementById('aiToken').value.trim());setAIStatus('Настройки сохранены.')}
+function clearAISettings(){localStorage.removeItem(AI_URL_KEY);localStorage.removeItem(AI_TOKEN_KEY);document.getElementById('aiUrl').value='';document.getElementById('aiToken').value='';setAIStatus('Настройки очищены.')}
+function setAIStatus(s){const e=document.getElementById('aiStatus');if(e)e.textContent=s}
+function aiHeaders(){const t=localStorage.getItem(AI_TOKEN_KEY)||'';return{'Content-Type':'application/json','X-AI-Token':t,'Authorization':'Bearer '+t}}
+async function checkAIConnection(){saveAISettings();const u=normalizeAIUrl(localStorage.getItem(AI_URL_KEY));if(!u){setAIStatus('❌ Укажи URL AI-сервера.');return}setAIStatus('⏳ Проверяю подключение...');try{const r=await fetch(u+'/api/status',{headers:aiHeaders()});if(!r.ok)throw new Error('HTTP '+r.status);setAIStatus('🟢 AI подключён.')}catch(e){setAIStatus('🔴 Ошибка подключения: '+e.message)}}
+function escapeAI(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function renderAI(md){let s=escapeAI(md);s=s.replace(/```([\s\S]*?)```/g,'<pre><code>$1</code></pre>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>').replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/^(?:- |• )(.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>').replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');return '<p>'+s+'</p>'}
+function addAIMessage(role,text){const c=document.getElementById('aiChat'),d=document.createElement('div');d.className='ai-msg '+(role==='user'?'ai-user':'ai-bot');d.innerHTML=role==='user'?escapeAI(text):renderAI(text);c.appendChild(d);c.scrollTop=c.scrollHeight}
+async function sendAIMessage(text){const input=document.getElementById('aiInput');text=(text||input.value||'').trim();if(!text)return;const u=normalizeAIUrl(localStorage.getItem(AI_URL_KEY)||document.getElementById('aiUrl').value),t=(localStorage.getItem(AI_TOKEN_KEY)||document.getElementById('aiToken').value||'').trim();if(!u){setAIStatus('❌ Сначала укажи URL AI-сервера.');return}addAIMessage('user',text);input.value='';setAIStatus('⏳ Qwen думает...');try{const r=await fetch(u+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json','X-AI-Token':t,'Authorization':'Bearer '+t},body:JSON.stringify({message:text})});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||('HTTP '+r.status));addAIMessage('assistant',d.response||d.message?.content||'Пустой ответ.');setAIStatus('🟢 Готово.')}catch(e){addAIMessage('assistant','**Ошибка подключения**
+
+'+e.message);setAIStatus('🔴 AI недоступен.')}}
+function aiQuick(t){sendAIMessage(t)}
+document.addEventListener('DOMContentLoaded',()=>{loadAISettings();const i=document.getElementById('aiInput');if(i)i.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendAIMessage()}})});
+</script>
 </body>
 </html>
