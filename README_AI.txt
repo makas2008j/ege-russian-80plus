@@ -1,11 +1,15 @@
-EGE Russian 80+ + Local AI
+EGE Russian 80+ — Local AI integration
 
-1. Put index.html and ai_bridge.js in the GitHub Pages repository root.
-2. Start the local bridge on Windows with the separate ege_local_ai_bridge/start_ai.bat.
-3. Open the GitHub Pages site on the same Windows PC.
-4. Open the new "🤖 ИИ" tab.
+Replace index.html and ai_bridge.js in the GitHub Pages repository with these files.
+The AI tab is built directly into index.html, so it does not depend on dynamic injection to appear.
 
-The website calls http://127.0.0.1:8000.
-The AI uses Ollama + qwen3:8b locally.
+On the PC run your working local bridge:
+http://127.0.0.1:8000
 
-Important: 127.0.0.1 on an iPhone means the iPhone itself, not the Windows PC. For iPhone use later, expose the bridge over LAN or a secure tunnel.
+The bridge must expose:
+GET /api/status
+POST /api/chat
+
+Qwen 3 8B is used through Ollama.
+
+The AI output supports Markdown-like formatting: headings, bold, italic, lists, code and paragraphs.

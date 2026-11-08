@@ -90,6 +90,42 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 
 <section id="tab-routine" class="tab-content"><div class="card-section"><h3>Режим недели</h3><div id="routine-list"></div></div></section>
 <section id="tab-progress" class="tab-content"><div class="card-section"><h3>История тестов</h3><div id="history-list">Пока нет тестов.</div></div></section>
+<section id="tab-ai" class="tab-content">
+<div class="ai-shell">
+  <div class="ai-head">
+    <div><div class="ai-title">🤖 ИИ-репетитор</div><div class="ai-subtitle">Qwen 3 8B • работает локально на твоём ПК</div></div>
+    <div id="ai-status" class="ai-status offline">● Проверка...</div>
+  </div>
+  <div class="ai-tools">
+    <button class="ai-tool active" onclick="aiMode('chat',this)">💬 Чат</button>
+    <button class="ai-tool" onclick="aiMode('error',this)">📝 Разбор ошибки</button>
+    <button class="ai-tool" onclick="aiMode('task',this)">🎯 Задание</button>
+    <button class="ai-tool" onclick="aiMode('progress',this)">📊 Прогресс</button>
+    <button class="ai-tool" onclick="aiMode('rule',this)">📚 Правило</button>
+  </div>
+  <div id="ai-mode-chat" class="ai-mode active">
+    <div id="ai-messages" class="ai-messages"></div>
+    <div class="ai-compose"><textarea id="ai-input" rows="2" placeholder="Напиши вопрос по русскому языку..." onkeydown="aiEnter(event)"></textarea><button class="ai-send" onclick="aiSend()">➤</button></div>
+    <div class="ai-hint">Enter — отправить • Shift+Enter — новая строка</div>
+  </div>
+  <div id="ai-mode-error" class="ai-mode"><div class="ai-form">
+    <label>№ задания <input id="ai-error-task" type="number" min="1" max="26" placeholder="Например, 9"></label>
+    <label>Что написал ты <textarea id="ai-error-student" rows="3" placeholder="Твой ответ или ход решения"></textarea></label>
+    <label>Правильный ответ <textarea id="ai-error-correct" rows="2" placeholder="Если знаешь"></textarea></label>
+    <label>Условие / контекст <textarea id="ai-error-context" rows="4" placeholder="Вставь условие задания"></textarea></label>
+    <button class="btn-main" onclick="aiAnalyzeError()">Разобрать ошибку</button>
+  </div><div id="ai-error-result" class="ai-result"></div></div>
+  <div id="ai-mode-task" class="ai-mode"><div class="ai-form">
+    <label>№ задания <select id="ai-task-num"><option>1</option><option>2</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option></select></label>
+    <label>Тема <input id="ai-task-topic" placeholder="Например: правописание корней"></label>
+    <label>Сложность <select id="ai-task-diff"><option>средняя</option><option>лёгкая</option><option>сложная</option></select></label>
+    <button class="btn-main" onclick="aiGenerateTask()">Сгенерировать задание</button>
+  </div><div id="ai-task-result" class="ai-result"></div></div>
+  <div id="ai-mode-progress" class="ai-mode"><div id="ai-progress-card" class="ai-progress-card"></div><button class="btn-main" onclick="aiAnalyzeProgress()">📊 Проанализировать мой прогресс</button><div id="ai-progress-result" class="ai-result"></div></div>
+  <div id="ai-mode-rule" class="ai-mode"><div class="ai-form"><label>Что объяснить <textarea id="ai-rule" rows="4" placeholder="Например: Н и НН в причастиях"></textarea></label><button class="btn-main" onclick="aiExplainRule()">Объяснить правило</button></div><div id="ai-rule-result" class="ai-result"></div></div>
+  <div class="ai-footer"><button onclick="aiClearHistory()" class="ai-link">Очистить историю чата</button><span>История хранится только в браузере.</span></div>
+</div>
+</section>
 </div>
 
 <div class="video-modal" id="videoModal">
