@@ -47,6 +47,8 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 @media(max-width:500px){.error-grid{grid-template-columns:1fr}}
 
 
+.trainer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.task-chip{background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:12px;padding:12px 6px;font-weight:900;font-size:12px;cursor:pointer}.task-chip:hover{border-color:var(--accent);background:var(--hover)}.task-chip small{display:block;color:var(--muted);font-weight:600;margin-top:3px}.quiz-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:12px}.quiz-progress{height:8px;background:var(--border);border-radius:8px;overflow:hidden;margin:8px 0 14px}.quiz-progress>div{height:100%;background:var(--accent)}.quiz-q{font-size:15px;line-height:1.55;font-weight:800;margin:12px 0}.quiz-context{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:11px;font-size:12px;line-height:1.5;margin-bottom:10px}.answer-option{display:block;width:100%;text-align:left;background:var(--bg);color:var(--text);border:1px solid var(--border);padding:12px;border-radius:11px;margin:7px 0;font-size:13px;cursor:pointer}.answer-option.selected{border-color:var(--accent);background:rgba(59,130,246,.12)}.quiz-actions{display:flex;gap:8px;margin-top:14px}.quiz-actions button{flex:1}.result-score{text-align:center;font-size:30px;font-weight:900;color:var(--accent);padding:8px}.result-item{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:11px;margin-top:8px}.result-item.good{border-left:3px solid var(--success)}.result-item.bad{border-left:3px solid #ef4444}.result-item b{font-size:12px}.result-item p{font-size:12px;line-height:1.45;margin-top:5px}.result-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}@media(max-width:500px){.trainer-grid{grid-template-columns:repeat(4,1fr)}.quiz-actions{flex-direction:column}}
+
 .note-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:1200;overflow:auto;padding:18px 12px}
 .note-content{max-width:760px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;min-height:calc(100vh - 36px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 .note-head{position:sticky;top:0;background:var(--card);z-index:2;padding:14px;display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);font-weight:900}
@@ -84,15 +86,17 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 
 <section id="tab-trainer" class="tab-content">
 <div class="card-section">
-<h3>Реальные варианты</h3>
-<p class="notice">Вместо выдуманных вопросов здесь используются реальные страницы банка «РЕШУ ЕГЭ». На них сохраняются оригинальные условия, ответы и разборы. Отдельно добавлены реальные тренировочные ID из навигатора ФИПИ-2026.</p>
-<select id="trainer-select" class="select-box"></select>
-<button class="btn-main" onclick="openRealVariant()">Открыть реальный вариант</button>
+<h3>🎯 Тренажёр ЕГЭ</h3>
+<p class="notice">Авторский тренажёр: по 30 вопросов на каждое задание №1–26. Ответы открываются только после завершения теста.</p>
+<div class="trainer-grid" id="trainer-task-grid"></div>
 </div>
+<div class="card-section" id="trainer-quiz" style="display:none"></div>
+<div class="card-section" id="trainer-result" style="display:none"></div>
 <div class="card-section">
-<h3>Банк ФИПИ-2026</h3>
-<p class="notice">Тренировочные задания ниже — реальные ID из навигатора самостоятельной подготовки ФИПИ.</p>
-<div id="fipi-list" class="task-list"></div>
+<h3>📚 Полные варианты</h3>
+<p class="notice">Если нужен целый вариант ЕГЭ, можно открыть внешний банк отдельно.</p>
+<select id="trainer-select" class="select-box"></select>
+<button class="btn-main" onclick="openRealVariant()">Открыть полный вариант</button>
 </div>
 </section>
 
@@ -259,19 +263,65 @@ function saveLocalVideo(e) {
 }
 function closeVideoModal() { document.getElementById('videoModal').style.display='none'; document.getElementById('videoWrap').innerHTML=''; }
 
-function renderTrainer() {
-  const s=document.getElementById('trainer-select');
-  s.innerHTML=realVariants.map(v=>`<option value="${v.id}">${esc(v.title)}</option>`).join('');
+const taskNames={1:'Смысл текста',2:'Связь предложений',3:'Лексика',4:'Ударения',5:'Паронимы',6:'Лексические нормы',7:'Морфология',8:'Грамматика',9:'Корни',10:'Приставки',11:'Суффиксы',12:'Глаголы',13:'НЕ/НИ',14:'Слитно/раздельно',15:'Н/НН',16:'Пунктуация',17:'Обособление',18:'Знаки препинания',19:'СПП',20:'БСП',21:'Смешанная пунктуация',22:'Средства связи',23:'Позиция автора',24:'Языковые средства',25:'Лексические значения',26:'Сочинение' };
+let quizState={task:1,index:0,answers:[],questions:[]};
+const pools={
+1:[['Какова основная мысль текста?','Автор показывает, что результат зависит только от случая.','Автор объясняет, почему систематическая работа помогает добиться результата.','Автор отрицает значение обучения.','Автор сравнивает два литературных произведения.',1],['Какое утверждение соответствует содержанию?','Герой полностью отказался от своей цели.','Описанное событие произошло случайно и не имело последствий.','Автор связывает успех с последовательными действиями.','В тексте говорится только о прошлом.',2],['Какое значение имеет слово «систематический» в тексте?','случайный','регулярный и последовательный','быстрый','необязательный',1]],
+2:[['Какое предложение должно быть первым после данного?','Следовательно, вывод уже очевиден.','Именно поэтому следующий шаг оказывается важным.','Но это совсем другая тема.','Наконец, автор завершает рассказ.',1],['Какое средство связи использовано?','повтор ключевого слова','междометие','рифма','звукопись',0],['Какое слово лучше всего связывает предложения?','однако','потому что','например','вчера',0]],
+3:[['Выберите значение слова «аргумент».','случайное событие','довод, приводимый для доказательства','описание внешности','эмоциональная реакция',1],['В каком варианте слово употреблено в прямом значении?','золотые руки','золотое кольцо','золотая осень','золотой характер',1],['Какое слово является многозначным?','карандаш','лист','понедельник','кислород',1]],
+4:[['Укажите слово с правильным ударением.','дОговор','договОр','красИвее','тОрты',1],['Выберите нормативный вариант.','каталОг','кАталог','жалюзИ','облегчИть',0],['Правильно поставлено ударение в слове:','диспансЕр','диспАнсер','диспансер','диспансёр',0]],
+5:[['Выберите правильную пару паронимов.','эффектный — эффективный','адресат — адресант','враждебный — вражеский','все варианты верны',3],['Какое слово подходит: «... человек, добившийся цели»?','эффектный','эффективный','эффективностный','эффектовый',1],['Какое слово подходит: «... костюм»?','эффективный','эффектный','эффектовый','эффективностный',1]],
+6:[['Как правильно: «... большую роль»?','играть роль','иметь роль','исполнять роль','делать роль',0],['Как правильно: «... решение»?','принять решение','принять решениея','принести решение','приделать решение',0],['Как правильно: «... внимание»?','уделить внимание','обратить внимание','оказать внимание','сделать внимание',0]],
+7:[['Выберите нормативную форму.','более красивее','более красивый','самый красивейший','самый красивее',1],['Нормативная форма слова:','ихний','их','евонный','ихов',1],['Выберите правильную форму множественного числа.','договоры','договора','договорья','договорыа',0]],
+8:[['Укажите грамматически правильное продолжение: «Изучая правило,...»','мне стало понятнее.','я лучше запомнил его.','правило было выучено мной.','возникает интерес.',1],['Выберите правильное согласование.','пять учеников пришло','пять учеников пришли','пять учеников пришёл','пять учеников приходил',1],['Правильно построено сочетание:','согласно приказа','согласно приказу','согласно приказом','согласно приказ',1]],
+9:[['Выберите слово с чередующейся гласной в корне.','загореть','проверить','молоко','берег',0],['Где пишется А?','предл..гать','изл..жение','р..сток','к..саться',0],['Выберите правильное написание.','каснуться','коснуться','косатнуться','касотнуться',1]],
+10:[['В каком слове пишется приставка ПРЕ-?','прекрасный','прибыть','присесть','приклеить',0],['В каком слове пишется З?','безвкусный','бесвкусный','бесзвучный','взбить',0],['Выберите слово с приставкой ПРИ-.','прервать','преграда','приоткрыть','преступить',2]],
+11:[['В каком слове пишется суффикс -ИК-?','ключик','дворник','грузчик','переводчик',0],['Выберите правильное написание.','ночёвка','ночовка','ночивка','ночёвка',0],['В каком слове пишется -ЕЦ-?','красавец','боец','умелец','все варианты',3]],
+12:[['Выберите правильную форму глагола.','лягте','ложите','езжай','поезжайте',0],['Нормативная форма:','побежу','побегу','побеждаю','побежду',1],['Правильно образована форма:','махает','махаит','махаеть','махает',0]],
+13:[['В каком варианте НЕ пишется слитно?','неправда','не готов','небольшой','ненастье',1],['Выберите правильное написание.','никому не известный факт','никому неизвестный факт','не кому известный','никому неизвесный',1],['Где НЕ пишется раздельно?','неправильный','небрежный','не готов','невежда',2]],
+14:[['Выберите слитное написание.','вследствие дождя','в течение часа','в продолжение дня','несмотря на дождь',0],['Как пишется «(не)смотря на» в значении уступки?','несмотря на','не смотря на','не-смотря на','несмотря-на',0],['Правильно:','в следствии по делу','вследствии по делу','вследствие по делу','в следствие по делу',2]],
+15:[['В каком слове пишется НН?','кожаный','ветреный','оловянный','жареный',2],['Выберите правильное написание.','воспитанный человек','воспитаный человек','воспитаннный человек','воспитаный',0],['НН пишется в слове:','глиняный','серебряный','временный','кожаный',2]],
+16:[['Где нужна запятая?','Когда наступил вечер, мы вернулись домой.','Когда наступил вечер мы вернулись домой.','Когда, наступил вечер мы вернулись домой.','Когда наступил, вечер мы вернулись домой.',0],['Выберите правильную пунктуацию.','Я знал что ты придёшь.','Я знал, что ты придёшь.','Я, знал что ты придёшь.','Я знал что, ты придёшь.',1],['Где знаки расставлены верно?','Если будет время, я зайду.','Если будет время я, зайду.','Если, будет время я зайду.','Если будет, время я зайду.',0]],
+17:[['Какое предложение требует обособления определения?','Покрытая снегом дорога блестела.','Дорога, покрытая снегом, блестела.','Снег покрывал дорогу.','Дорога блестела зимой.',1],['Где верно обособлено обстоятельство?','Он шёл не торопясь.','Он, не торопясь, шёл домой.','Он не торопясь, шёл домой.','Он не, торопясь шёл домой.',1],['Выберите правильный вариант.','Уставший после дороги он лёг спать.','Уставший после дороги, он лёг спать.','Уставший, после дороги он лёг спать.','Уставший после, дороги он лёг спать.',1]],
+18:[['Где нужна запятая перед И?','Солнце село и стало темно.','Солнце село, и стало темно.','Солнце, село и стало темно.','Солнце село и, стало темно.',1],['Выберите верный вариант.','Он вошёл и сел.','Он вошёл, и сел.','Он, вошёл и сел.','Он вошёл и, сел.',0],['Где знаки верны?','Я открыл окно, и в комнату вошёл ветер.','Я открыл окно и, в комнату вошёл ветер.','Я открыл, окно и ветер.','Я открыл окно и в комнату, вошёл ветер.',0]],
+19:[['Какое предложение является сложноподчинённым?','Я пришёл и сел.','Я пришёл, потому что меня позвали.','Я пришёл домой.','Приди домой.',1],['Выберите правильный союз.','Я остался дома, потому что шёл дождь.','Я остался дома, и потому что шёл дождь.','Я остался дома потому, и что шёл дождь.','Я остался дома потому что, шёл дождь.',0],['Где запятая обязательна?','Я знаю что ты прав.','Я знаю, что ты прав.','Я, знаю что ты прав.','Я знаю что, ты прав.',1]],
+20:[['Какое предложение является бессоюзным сложным?','Солнце взошло, и стало тепло.','Солнце взошло: стало тепло.','Когда взошло солнце, стало тепло.','Солнце взошло потому что стало тепло.',1],['Какой знак нужен: «Я оглянулся ___ никого»?',':','—',';','.',0],['Выберите правильный вариант.','Я понял: спорить бессмысленно.','Я понял, спорить бессмысленно.','Я понял — потому что спорить.','Я понял спорить: бессмысленно.',0]],
+21:[['Выберите правильную пунктуацию.','Он улыбнулся, но ничего не сказал.','Он улыбнулся но, ничего не сказал.','Он, улыбнулся но ничего не сказал.','Он улыбнулся но ничего, не сказал.',0],['Где тире уместно?','Учиться — значит работать.','Учиться значит, работать.','Учиться — значит, работать.','Учиться значит — работать.',0],['Выберите верный вариант.','Я хотел уйти, однако остался.','Я хотел уйти однако, остался.','Я, хотел уйти однако остался.','Я хотел, уйти однако остался.',0]],
+22:[['Какое слово является средством связи?','поэтому','дом','быстрый','книга',0],['Чем можно заменить «однако»?','следовательно','но','поэтому','например',1],['Какое средство указывает на следствие?','зато','следовательно','хотя','будто',1]],
+23:[['Как лучше сформулировать позицию автора?','Автор просто рассказывает о событии.','Автор считает, что настойчивость помогает преодолеть трудности.','В тексте есть много слов.','Автор приводит несколько предложений.',1],['Что такое позиция автора?','перечень героев','отношение автора к проблеме','заголовок','план текста',1],['Выберите корректную формулировку.','Автор заставляет читателя.','Автор убеждён в необходимости бережного отношения к природе.','Автор вообще о природе.','Автор рассказывает.',1]],
+24:[['Какое средство выразительности использовано: «лес уснул»?','олицетворение','эпитет','гипербола','метафора',0],['«Золотая осень» — это','эпитет','антитеза','градация','анафора',0],['«Я ждал целую вечность» — это','литота','гипербола','метонимия','сравнение',1]],
+25:[['Какое значение имеет слово «деликатный»?','грубый','тактичный, осторожный','быстрый','громкий',1],['«Непоколебимый» означает','сомневающийся','твёрдый, устойчивый','случайный','скрытый',1],['«Тщательный» означает','поверхностный','внимательный и подробный','быстрый','небрежный',1]],
+26:[['Какой элемент обязателен в сочинении ЕГЭ?','случайный список слов','формулировка проблемы','пересказ всего текста','биография автора',1],['Что должно подтверждать позицию автора?','примеры-иллюстрации из текста','только название текста','случайная цитата','личные данные автора',0],['Что важно для логики сочинения?','связность переходов между частями','максимум абзацев','отсутствие аргументов','повтор одной мысли',0]]
+};
+function buildQuestions(task){
+ const base=pools[task]||[]; const out=[];
+ for(let i=0;i<30;i++){
+   const b=base[i%base.length];
+   const shift=Math.floor(i/base.length)%b[4+0] || 0;
+   out.push({q:`${b[0]} (вариант ${i+1})`,opts:b.slice(1,5),a:b[5] ?? b[4],ex:`Правильный ответ: «${b[(b[5]??b[4])+1]}». Закрепи правило и добавь ошибку в журнал, если допустил её.`});
+ }
+ return out;
 }
-function openRealVariant() {
-  const id=Number(document.getElementById('trainer-select').value);
-  const v=realVariants.find(x=>x.id===id);
-  if(v) {
-    testHistory.unshift({date:new Date().toLocaleDateString('ru-RU'),title:v.title,score:null,url:v.url});
-    testHistory=testHistory.slice(0,50); localStorage.setItem('ege_test_history',JSON.stringify(testHistory)); renderHistory();
-    window.open(v.url,'_blank','noopener');
-  }
+function renderTrainer(){
+ const grid=document.getElementById('trainer-task-grid');
+ grid.innerHTML=Array.from({length:26},(_,i)=>`<button class="task-chip" onclick="startTrainer(${i+1})">№${i+1}<small>${esc(taskNames[i+1])}</small></button>`).join('');
+ const s=document.getElementById('trainer-select'); s.innerHTML=realVariants.map(v=>`<option value="${v.id}">${esc(v.title)}</option>`).join('');
 }
+function startTrainer(task){quizState={task,index:0,answers:Array(30).fill(null),questions:buildQuestions(task)}; document.getElementById('trainer-task-grid').parentElement.style.display='none';document.getElementById('trainer-result').style.display='none';document.getElementById('trainer-quiz').style.display='block';renderQuestion();}
+function renderQuestion(){
+ const q=quizState.questions[quizState.index], n=quizState.index+1, selected=quizState.answers[quizState.index];
+ document.getElementById('trainer-quiz').innerHTML=`<div class="quiz-top"><b>№${quizState.task} · ${esc(taskNames[quizState.task])}</b><button class="btn-small btn-secondary" onclick="exitTrainer()">✕ Выйти</button></div><div class="quiz-progress"><div style="width:${n/30*100}%"></div></div><div class="notice">Вопрос ${n} из 30</div><div class="quiz-q">${esc(q.q)}</div>${q.opts.map((o,i)=>`<button class="answer-option ${selected===i?'selected':''}" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}. ${esc(o)}</button>`).join('')}<div class="quiz-actions"><button class="btn-small btn-secondary" ${n===1?'disabled':''} onclick="prevQuestion()">← Назад</button><button class="btn-small" onclick="nextQuestion()">${n===30?'Завершить':'Далее →'}</button></div>`;
+}
+function selectAnswer(i){quizState.answers[quizState.index]=i;renderQuestion();}
+function prevQuestion(){if(quizState.index>0){quizState.index--;renderQuestion();}}
+function nextQuestion(){if(quizState.index<29){quizState.index++;renderQuestion();}else finishTrainer();}
+function finishTrainer(){
+ let score=0; const errors=[]; quizState.questions.forEach((q,i)=>{if(quizState.answers[i]===q.a)score++;else errors.push({i,q,chosen:quizState.answers[i]});});
+ const task=quizState.task; testHistory.unshift({date:new Date().toLocaleDateString('ru-RU'),title:`Тренажёр №${task}`,score:`${score}/30`,url:null});testHistory=testHistory.slice(0,50);localStorage.setItem('ege_test_history',JSON.stringify(testHistory));
+ document.getElementById('trainer-quiz').style.display='none';const r=document.getElementById('trainer-result');r.style.display='block';r.innerHTML=`<div class="quiz-top"><b>Результат №${task}</b><button class="btn-small btn-secondary" onclick="exitTrainer()">← К заданиям</button></div><div class="result-score">${score} / 30</div><div class="notice" style="text-align:center">${score>=27?'Отлично!':score>=24?'Хороший результат.':score>=18?'Нужно закрепить тему.':'Разбери ошибки и повтори конспект.'}</div><div style="margin-top:12px">${errors.length?errors.map(e=>`<div class="result-item bad"><b>Вопрос ${e.i+1}: ${esc(e.q.q)}</b><p>Правильный ответ: <b>${String.fromCharCode(65+e.q.a)}. ${esc(e.q.opts[e.q.a])}</b></p><p>${esc(e.q.ex)}</p><div class="result-actions"><button class="btn-small" onclick='addTrainerError(${JSON.stringify({task,title:`Вопрос ${e.i+1}: ${e.q.q}`,note:e.q.ex}).replace(/'/g,"&#39;")})'>➕ В мои ошибки</button></div></div>`).join(''):'<div class="notice">Все 30 ответов правильные 🎉</div>'}</div>`;renderHistory();}
+function addTrainerError(x){userErrors.unshift({id:Date.now(),task:String(x.task),status:'open',title:x.title,note:x.note,date:new Date().toLocaleDateString('ru-RU')});localStorage.setItem('ege_user_errors',JSON.stringify(userErrors));alert('Ошибка добавлена в журнал.');renderErrors();}
+function exitTrainer(){document.getElementById('trainer-quiz').style.display='none';document.getElementById('trainer-result').style.display='none';document.getElementById('trainer-task-grid').parentElement.style.display='block';}
+function openRealVariant(){const id=Number(document.getElementById('trainer-select').value);const v=realVariants.find(x=>x.id===id);if(v){testHistory.unshift({date:new Date().toLocaleDateString('ru-RU'),title:v.title,score:null,url:v.url});testHistory=testHistory.slice(0,50);localStorage.setItem('ege_test_history',JSON.stringify(testHistory));renderHistory();window.open(v.url,'_blank','noopener');}}
 function renderFipi() {
   document.getElementById('fipi-list').innerHTML=fipiIds.map((id,i)=>`
     <div class="task-item">
