@@ -79,20 +79,55 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 
 <section id="tab-trainer" class="tab-content">
 <div class="card-section">
-<h3>Реальные варианты</h3>
-<p class="notice">Вместо выдуманных вопросов здесь используются реальные страницы банка «РЕШУ ЕГЭ». На них сохраняются оригинальные условия, ответы и разборы. Отдельно добавлены реальные тренировочные ID из навигатора ФИПИ-2026.</p>
+<h3>🎯 Тренировка по заданиям</h3>
+<p class="notice">Здесь можно получить именно отдельные тренировочные задания, а не целый вариант. Вопросы генерирует твой локальный Qwen 3 8B. Это авторская тренировка, не официальный ФИПИ.</p>
+<div class="ai-form">
+<label>№ задания <select id="trainer-task-num"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option></select></label>
+<label>Количество <select id="trainer-task-count"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option><option value="30">30</option></select></label>
+<label>Тема <input id="trainer-task-topic" placeholder="Например: правописание корней"></label>
+<label>Сложность <select id="trainer-task-diff"><option>средняя</option><option>лёгкая</option><option>сложная</option></select></label>
+<button class="btn-main" onclick="trainerGenerateTask()">🎯 Сгенерировать тренировку</button>
+</div>
+<div id="trainer-task-result" class="ai-result"></div>
+<div id="trainer-ai-test" class="ai-test" style="display:none"></div>
+</div>
+
+<div class="card-section">
+<h3>🌐 Реальные варианты</h3>
+<p class="notice">Полные реальные варианты из внешнего банка. Они открываются отдельно и не заменяют тренировку выше.</p>
 <select id="trainer-select" class="select-box"></select>
 <button class="btn-main" onclick="openRealVariant()">Открыть реальный вариант</button>
 </div>
 <div class="card-section">
-<h3>Банк ФИПИ-2026</h3>
-<p class="notice">Тренировочные задания ниже — реальные ID из навигатора самостоятельной подготовки ФИПИ.</p>
+<h3>🏛 Банк ФИПИ-2026</h3>
+<p class="notice">Ссылки на официальный банк заданий ФИПИ.</p>
 <div id="fipi-list" class="task-list"></div>
 </div>
 </section>
 
 <section id="tab-routine" class="tab-content"><div class="card-section"><h3>Режим недели</h3><div id="routine-list"></div></div></section>
-<section id="tab-progress" class="tab-content"><div class="card-section"><h3>История тестов</h3><div id="history-list">Пока нет тестов.</div></div></section>
+<section id="tab-progress" class="tab-content">
+<div class="card-section">
+<h3>📊 Мой прогресс</h3>
+<div id="progress-stats" class="ai-progress-card"></div>
+</div>
+<div class="card-section">
+<h3>📝 Мои ошибки</h3>
+<p class="notice">Добавляй ошибки вручную после решения заданий. Они сохраняются в браузере и учитываются ИИ при анализе прогресса.</p>
+<div class="ai-form">
+<label>№ задания <select id="error-task-num">${Array.from({length:26},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join('')}</select></label>
+<label>Что было неправильно <textarea id="error-mistake" rows="3" placeholder="Например: в слове выбрал НН, но не заметил зависимое слово"></textarea></label>
+<label>Правильное правило / ответ <textarea id="error-correct" rows="3" placeholder="Например: полное причастие с зависимым словом — НН"></textarea></label>
+<label>Статус <select id="error-status"><option value="repeat">🔴 Нужно повторить</option><option value="understood">🟢 Уже понял</option></select></label>
+<button class="btn-main" onclick="addUserError()">➕ Добавить ошибку</button>
+</div>
+</div>
+<div class="card-section">
+<h3>История ошибок</h3>
+<div id="user-errors-list"></div>
+</div>
+<div class="card-section"><h3>История тестов</h3><div id="history-list">Пока нет тестов.</div></div>
+</section>
 <section id="tab-ai" class="tab-content">
 <div class="ai-shell">
   <div class="ai-head">
@@ -257,7 +292,53 @@ function renderHistory() {
   el.innerHTML=testHistory.map(h=>`
     <div class="routine-row"><b>${esc(h.title)}</b> — ${esc(h.date)}${h.score!==null&&h.score!==undefined?' — Балл: '+esc(h.score):' — открыт источник'}</div>`).join('');
 }
-window.onload=initApp;
+
+function getUserErrors(){return JSON.parse(localStorage.getItem('ege_user_errors')||'[]');}
+function saveUserErrors(items){localStorage.setItem('ege_user_errors',JSON.stringify(items));}
+function renderProgressStats(){
+  const el=document.getElementById('progress-stats'); if(!el)return;
+  const weeks=Object.values(completedWeeks).filter(Boolean).length;
+  const errors=getUserErrors();
+  const repeat=errors.filter(e=>e.status==='repeat').length;
+  const tests=testHistory.length;
+  el.innerHTML=`<div class="ai-stat"><b>${weeks}</b><span>из 28 недель</span></div><div class="ai-stat"><b>${repeat}</b><span>повторить</span></div><div class="ai-stat"><b>${tests}</b><span>тестов</span></div>`;
+}
+function renderUserErrors(){
+  const el=document.getElementById('user-errors-list'); if(!el)return;
+  const errors=getUserErrors();
+  if(!errors.length){el.innerHTML='<div class="notice">Пока нет добавленных ошибок.</div>';renderProgressStats();return;}
+  el.innerHTML=errors.map((e,i)=>`<div class="task-item">
+    <div class="source-badge">Задание №${esc(e.task)} • ${e.status==='repeat'?'🔴 Нужно повторить':'🟢 Уже понял'}</div>
+    <div class="task-desc"><b>Ошибка:</b> ${esc(e.mistake)}</div>
+    <div class="task-desc"><b>Правило:</b> ${esc(e.correct)}</div>
+    <div class="week-actions"><button class="btn-small btn-secondary" onclick="toggleUserError(${i})">${e.status==='repeat'?'Отметить как понял':'Вернуть в повторение'}</button><button class="btn-small" onclick="deleteUserError(${i})">Удалить</button></div>
+  </div>`).join('');
+  renderProgressStats();
+}
+function addUserError(){
+  const task=document.getElementById('error-task-num')?.value;
+  const mistake=(document.getElementById('error-mistake')?.value||'').trim();
+  const correct=(document.getElementById('error-correct')?.value||'').trim();
+  const status=document.getElementById('error-status')?.value||'repeat';
+  if(!mistake){alert('Напиши, что было неправильно.');return;}
+  const errors=getUserErrors();
+  errors.unshift({id:Date.now(),task,mistake,correct:correct||'Не указано',status,date:new Date().toLocaleDateString('ru-RU')});
+  saveUserErrors(errors.slice(0,200));
+  document.getElementById('error-mistake').value=''; document.getElementById('error-correct').value='';
+  renderUserErrors();
+}
+function toggleUserError(i){const errors=getUserErrors();if(!errors[i])return;errors[i].status=errors[i].status==='repeat'?'understood':'repeat';saveUserErrors(errors);renderUserErrors();}
+function deleteUserError(i){const errors=getUserErrors();errors.splice(i,1);saveUserErrors(errors);renderUserErrors();}
+function trainerGenerateTask(){
+  const map=[['trainer-task-num','ai-task-num'],['trainer-task-count','ai-task-count'],['trainer-task-topic','ai-task-topic'],['trainer-task-diff','ai-task-diff']];
+  map.forEach(([from,to])=>{const a=document.getElementById(from),b=document.getElementById(to);if(a&&b)b.value=a.value;});
+  window.aiTestTarget='trainer-ai-test';
+  aiInit();
+  aiGenerateTask();
+}
+const originalRenderWeeks=renderWeeks;
+function initAppWithProgress(){initApp();renderUserErrors();renderProgressStats();}
+window.onload=initAppWithProgress;
 </script>
 <script src="ai_bridge.js"></script>
 </body>

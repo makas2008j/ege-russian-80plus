@@ -140,7 +140,7 @@
   }
 
   function renderGeneratedTest(){
-    const el=document.getElementById('ai-test'); if(!el || !generatedTest)return;
+    const el=document.getElementById(window.aiTestTarget || 'ai-test'); if(!el || !generatedTest)return;
     el.style.display='block';
     if(generatedIndex>=generatedTest.questions.length){
       const qs=generatedTest.questions;
@@ -165,6 +165,7 @@
   window.aiRestartGeneratedTest=function(){generatedAnswers={};generatedIndex=0;renderGeneratedTest();};
 
   window.aiGenerateTask=async function(){
+    if(!window.aiTestTarget) window.aiTestTarget='ai-test';
     const n=document.getElementById('ai-task-num').value;
     const count=Math.max(1,Math.min(30,Number(document.getElementById('ai-task-count')?.value||10)));
     const t=document.getElementById('ai-task-topic').value;
@@ -185,7 +186,7 @@
       generatedTest=data;generatedAnswers={};generatedIndex=0;
       document.getElementById('ai-task-result').innerHTML=`<div><b>Тест готов.</b> ${count} вопросов • №${esc(n)} • ${esc(d)}.</div>`;
       renderGeneratedTest();
-      document.getElementById('ai-test')?.scrollIntoView({behavior:'smooth',block:'start'});
+      document.getElementById(window.aiTestTarget || 'ai-test')?.scrollIntoView({behavior:'smooth',block:'start'});
     }catch(e){setResult('ai-task-result','**Не удалось создать тест**\n\n'+e.message);}
   };
 
