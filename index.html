@@ -294,8 +294,12 @@ async function sendAiQuery() {
   chat.scrollTop = chat.scrollHeight;
   status.textContent = 'Статус: Отправка запроса к ИИ...';
 
+  // Автоматически берем тот же IP-адрес, с которого открыта страница, но с портом 8000
+  const serverHost = window.location.hostname || '127.0.0.1';
+  const apiUrl = 'https://executive-investors-circular-copying.trycloudflare.com';
+
   try {
-    const res = await fetch('http://127.0.0.1:8000/api/chat', {
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({prompt: query})
@@ -305,7 +309,7 @@ async function sendAiQuery() {
     chat.insertAdjacentHTML('beforeend', `<div class="ai-msg ai-bot">${esc(data.response || data.answer || 'Ответ получен')}</div>`);
     status.textContent = 'Статус: Готов к работе';
   } catch(e) {
-    chat.insertAdjacentHTML('beforeend', `<div class="ai-msg ai-bot" style="border-color:#ef4444"><b>Ошибка:</b> Не удалось связаться с локальным ИИ-мостом. Убедитесь, что сервер запущен (start_ai.bat).</div>`);
+    chat.insertAdjacentHTML('beforeend', `<div class="ai-msg ai-bot" style="border-color:#ef4444"><b>Ошибка:</b> Не удалось связаться с сервером (${serverHost}:8000). Убедитесь, что ПК и iPhone в одной сети Wi-Fi, а сервер запущен.</div>`);
     status.textContent = 'Статус: Ошибка подключения';
   }
   chat.scrollTop = chat.scrollHeight;
