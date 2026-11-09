@@ -77,34 +77,50 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 <section id="tab-trainer" class="tab-content">
 <div class="card-section">
 <h3>🎯 Тренажёр ЕГЭ</h3>
-<p class="notice">Авторский тренажёр: по 30 вопросов на каждое задание №1–26.</p>
+<p class="notice">Если нужен целый вариант ЕГЭ, можно открыть внешний банк отдельно.</p>
+<select id="trainer-select" class="select-box"></select>
+<button class="btn-main" onclick="openRealVariant()">Открыть полный вариант</button>
 </div>
 </section>
 
-<section id="tab-routine" class="tab-content"><div class="card-section"><h3>Режим недели</h3><div id="routine-list"></div></div></section>
+<section id="tab-routine" class="tab-content">
+<div class="card-section"><h3>Режим недели</h3><div id="routine-list"></div></div>
+</section>
 
 <section id="tab-progress" class="tab-content">
 <div class="card-section">
 <h3>📊 Мой прогресс</h3>
+<p class="notice">Здесь хранятся твои личные ошибки. Добавляй их после каждого варианта — это будет твой журнал повторения.</p>
 <div class="error-stats">
 <div class="stat"><b id="errors-total">0</b><span>Всего ошибок</span></div>
 <div class="stat"><b id="errors-open">0</b><span>Нужно повторить</span></div>
 <div class="stat"><b id="errors-resolved">0</b><span>Уже понял</span></div>
 </div>
+<div class="error-form">
+<div class="error-grid">
+<select id="error-task" class="error-select"></select>
+<select id="error-status" class="error-select"><option value="open">Нужно повторить</option><option value="resolved">Уже понял</option></select>
 </div>
+<input id="error-title" class="error-input" placeholder="Что именно было ошибочно?">
+<textarea id="error-note" class="error-textarea" placeholder="Запиши правильное правило или подсказку..."></textarea>
+<button class="btn-main" onclick="addError()">➕ Добавить ошибку</button>
+</div>
+<div id="errors-list"></div>
+</div>
+<div class="card-section"><h3>📝 История тестов</h3><div id="history-list">Пока нет тестов.</div></div>
 </section>
 
 <section id="tab-ai" class="tab-content">
 <div class="card-section ai-box">
 <h3>🤖 Локальный ИИ-ассистент</h3>
-<p class="notice">Введите текущую публичную ссылку от ngrok (например: <code>https://xxxx.ngrok-free.app</code>):</p>
+<p class="notice">Введите актуальную ссылку от ngrok (например: <code>https://xxxx.ngrok-free.app</code>):</p>
 <div class="ai-settings">
   <input type="text" id="ai-ngrok-url" class="error-input" placeholder="https://xxxx.ngrok-free.app" style="flex:1;">
   <button class="btn-small" onclick="saveNgrokUrl()">Сохранить</button>
 </div>
 
 <div class="ai-chat" id="ai-chat-output">
-  <div class="ai-msg ai-bot">Привет! Укажи выше актуальную ссылку ngrok, чтобы начать общение с ИИ с телефона.</div>
+  <div class="ai-msg ai-bot">Привет! Укажи выше ссылку ngrok, чтобы начать общение с ИИ.</div>
 </div>
 <div class="ai-row" style="margin-top: 12px;">
   <input type="text" id="ai-input" class="error-input ai-input" placeholder="Введите ваш вопрос..." onkeydown="if(event.key==='Enter') sendAiQuery()">
@@ -116,24 +132,29 @@ h1{font-size:19px;font-weight:800;background:linear-gradient(135deg,#3b82f6,#1d4
 </div>
 
 <script>
-const rawExcelPlan = [{"period": "Ноябрь • Нед. 1", "target": "10–20 → 25+", "topics": "База; №9: корни", "practice": "№9: 30–40 заданий", "control": "Мини-тест №9"}];
+const rawExcelPlan = [{"period": "Ноябрь • Нед. 1", "target": "10–20 → 25+", "topics": "База; №9: корни", "practice": "№9: 30–40 заданий", "control": "Мини-тест №9"}, {"period": "Ноябрь • Нед. 2", "target": "25–30", "topics": "№10–11: приставки, суффиксы", "practice": "№10–11: по 30 заданий", "control": "Тест №9–11"}, {"period": "Ноябрь • Нед. 3", "target": "30–35", "topics": "№12–13: глаголы, причастия, НЕ", "practice": "№12–13: по 30 заданий", "control": "Тест №9–13"}, {"period": "Ноябрь • Нед. 4", "target": "35–40", "topics": "№14–15: слитное/раздельное, Н/НН", "practice": "№14–15: по 30 заданий", "control": "Мини-вариант 1–15"}, {"period": "Декабрь • Нед. 1", "target": "40–45", "topics": "№7: морфологические нормы", "practice": "№7: 30–40 заданий", "control": "Тест №7"}, {"period": "Декабрь • Нед. 2", "target": "45–50", "topics": "№8: грамматические нормы", "practice": "№8: 30–40 заданий", "control": "Тест №7–8"}, {"period": "Декабрь • Нед. 3", "target": "50–55", "topics": "№16–18: базовая пунктуация", "practice": "№16–18: по 25–30 заданий", "control": "Мини-вариант 7–18"}, {"period": "Декабрь • Нед. 4", "target": "55–60", "topics": "№19–21: сложные предложения", "practice": "№19–21: по 25–30 заданий", "control": "Вариант 1–21"}, {"period": "Январь • Нед. 1", "target": "55–60", "topics": "Повтор №7–15", "practice": "100 смешанных заданий", "control": "Пробник №1"}, {"period": "Январь • Нед. 2", "target": "60–65", "topics": "Повтор №16–21", "practice": "100 смешанных заданий", "control": "Пробник №2"}, {"period": "Январь • Нед. 3", "target": "60–65", "topics": "№1–6, №22–26", "practice": "50–70 заданий", "control": "Пробник №3"}, {"period": "Январь • Нед. 4", "target": "65+", "topics": "Вся тестовая часть", "practice": "2 полноценных варианта", "control": "Пробник №4"}, {"period": "Февраль • Нед. 1", "target": "65+", "topics": "Сочинение: структура", "practice": "1 сочинение + разбор", "control": "Проверка по критериям"}, {"period": "Февраль • Нед. 2", "target": "65–70", "topics": "Проблема, позиция автора, примеры", "practice": "1–2 сочинения", "control": "Проверка К1–К6"}, {"period": "Февраль • Нед. 3", "target": "70+", "topics": "Связь примеров, аргументация", "practice": "2 сочинения", "control": "Проверка К1–К10"}, {"period": "Февраль • Нед. 4", "target": "70+", "topics": "Речь, логика, грамотность", "practice": "2 сочинения + 1 вариант", "control": "Пробник №5"}, {"period": "Март • Нед. 1", "target": "70–75", "topics": "Варианты целиком", "practice": "2 варианта + ошибки", "control": "Пробник №6"}, {"period": "Март • Нед. 2", "target": "75+", "topics": "Слабые темы", "practice": "50–80 целевых заданий", "control": "Пробник №7"}, {"period": "Март • Нед. 3", "target": "75–80", "topics": "Тест + сочинение", "practice": "2 варианта + сочинение", "control": "Пробник №8"}, {"period": "Март • Нед. 4", "target": "80+", "topics": "Закрепление", "practice": "2–3 варианта", "control": "Пробник №9"}, {"period": "Апрель • Нед. 1", "target": "80+", "topics": "Стабильность", "practice": "2–3 варианта + сочинение", "control": "Пробник №10"}, {"period": "Апрель • Нед. 2", "target": "80+", "topics": "Стабильность", "practice": "2–3 варианта + сочинение", "control": "Пробник №11"}, {"period": "Апрель • Нед. 3", "target": "80–85", "topics": "Сложные темы", "practice": "3 варианта", "control": "Пробник №12"}, {"period": "Апрель • Нед. 4", "target": "80–85+", "topics": "Экзаменационный режим", "practice": "3 варианта + сочинение", "control": "Пробник №13"}, {"period": "Май • Нед. 1", "target": "80–85+", "topics": "Финишная отработка", "practice": "3 варианта", "control": "Пробник №14"}, {"period": "Май • Нед. 2", "target": "80–90", "topics": "Финиш", "practice": "2–3 варианта", "control": "Пробник №15"}, {"period": "Май • Нед. 3", "target": "80+", "topics": "Лёгкое повторение", "practice": "1–2 варианта без перегруза", "control": "Контрольный вариант"}, {"period": "Последняя неделя", "target": "80+", "topics": "Сон, режим, повтор", "practice": "1 лёгкий вариант + ошибки", "control": "Готовность"}];
+const routineData = [{"day": "Пн", "action": "Видео + конспект + практика", "time": "1,5–2 ч", "res": "20–30 заданий"}, {"day": "Вт", "action": "Практика текущей темы", "time": "1,5 ч", "res": "30–40 заданий"}, {"day": "Ср", "action": "Видео/повтор + практика", "time": "1,5–2 ч", "res": "20–30 заданий"}, {"day": "Чт", "action": "Практика + работа над ошибками", "time": "1,5 ч", "res": "30–40 заданий"}, {"day": "Пт", "action": "Смешанные задания", "time": "1,5 ч", "res": "40–50 заданий"}, {"day": "Сб", "action": "Мини-вариант / сочинение", "time": "2–3 ч", "res": "Контроль прогресса"}, {"day": "Вс", "action": "Отдых или лёгкое повторение", "time": "0–45 мин", "res": "Без перегруза"}];
+const realVariants = [{"id": 1, "title": "Решу ЕГЭ — реальный вариант №1", "url": "https://rus-ege.sdamgia.ru/test?id=1"}, {"id": 2, "title": "Решу ЕГЭ — реальный вариант №2", "url": "https://rus-ege.sdamgia.ru/test?id=2"}];
+
 let completedWeeks = JSON.parse(localStorage.getItem('ege_completed_weeks') || '{}');
+let testHistory = JSON.parse(localStorage.getItem('ege_test_history') || '[]');
+let userErrors = JSON.parse(localStorage.getItem('ege_user_errors') || '[]');
+const sdamgiaBase = 'https://rus-ege.sdamgia.ru/';
 
 function initApp() {
-  renderWeeks();
-  // Загружаем сохраненную ссылку ngrok в поле ввода
+  renderWeeks(); renderRoutine(); renderHistory(); renderErrorTaskSelect(); renderErrors(); updateProgress();
+  const select = document.getElementById('trainer-select');
+  if(select) select.innerHTML = realVariants.map(v => `<option value="${v.url}">${v.title}</option>`).join('');
+
   const savedUrl = localStorage.getItem('ege_ngrok_url') || '';
   const inputEl = document.getElementById('ai-ngrok-url');
   if(inputEl) inputEl.value = savedUrl;
-  if(savedUrl) {
-    document.getElementById('ai-status').textContent = 'Статус: Ссылка загружена, готов к работе';
-  }
+  if(savedUrl) document.getElementById('ai-status').textContent = 'Статус: Ссылка загружена, готов к работе';
 }
 
 function saveNgrokUrl() {
   const inputEl = document.getElementById('ai-ngrok-url');
   let url = inputEl.value.trim();
-  // Убираем слеш на конце, если пользователь его случайно вставил
   if(url.endsWith('/')) url = url.slice(0, -1);
   localStorage.setItem('ege_ngrok_url', url);
   alert('Ссылка успешно сохранена!');
@@ -149,14 +170,76 @@ function toggleTheme() {
   document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark'?'light':'dark');
 }
 function renderWeeks() {
-  const el=document.getElementById('weeks-list'); 
-  if(!el) return;
-  el.innerHTML='';
+  const el=document.getElementById('weeks-list'); if(!el) return; el.innerHTML='';
   rawExcelPlan.forEach((w,i)=>{
-    el.insertAdjacentHTML('beforeend',`<div class="week-card"><h3>${w.period}</h3><p>Темы: ${w.topics}</p></div>`);
+    const checked=completedWeeks[i]?'checked':'';
+    el.insertAdjacentHTML('beforeend',`
+      <div class="week-card">
+        <div class="week-top"><div class="week-title">${esc(w.period)}</div><div class="week-target">${esc(w.target)}</div></div>
+        <div class="week-details">
+          <b>Темы:</b> ${esc(w.topics)}<br>
+          <b>Практика:</b> ${esc(w.practice)}<br>
+          <b>Контроль:</b> ${esc(w.control)}
+        </div>
+        <div class="week-actions">
+          <a class="btn-small btn-secondary" href="${sdamgiaBase}" target="_blank" rel="noopener">📚 Банк Решу ЕГЭ</a>
+          <label class="checkbox-container"><input type="checkbox" ${checked} onchange="toggleWeek(${i},this)"><span class="custom-checkbox"></span><span>Пройдено</span></label>
+        </div>
+      </div>`);
   });
 }
 function esc(s) { return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toggleWeek(i,cb) { completedWeeks[i]=cb.checked; localStorage.setItem('ege_completed_weeks',JSON.stringify(completedWeeks)); updateProgress(); }
+function updateProgress() {
+  const total=rawExcelPlan.length, done=Object.values(completedWeeks).filter(Boolean).length;
+  document.getElementById('progress-text').textContent=`${done} / ${total} недель`;
+  document.getElementById('progress-bar').style.width=`${total ? done/total*100 : 0}%`;
+}
+function renderRoutine() {
+  const el=document.getElementById('routine-list'); if(!el) return;
+  el.innerHTML = routineData.map(r=>`<div class="routine-row"><b>${esc(r.day)}:</b> ${esc(r.action)} (${esc(r.time)}) — <i>${esc(r.res)}</i></div>`).join('');
+}
+function renderHistory() {
+  const el=document.getElementById('history-list'); if(!el) return;
+  if(!testHistory.length) { el.innerHTML = 'Пока нет тестов.'; return; }
+  el.innerHTML = testHistory.map(t=>`<div class="result-item"><b>${esc(t.title)}</b><p>Результат: ${t.score}%</p></div>`).join('');
+}
+function renderErrorTaskSelect() {
+  const el=document.getElementById('error-task'); if(!el) return;
+  let opts = ''; for(let i=1; i<=26; i++) opts += `<option value="Задание ${i}">Задание ${i}</option>`;
+  el.innerHTML = opts;
+}
+function addError() {
+  const task = document.getElementById('error-task').value;
+  const status = document.getElementById('error-status').value;
+  const title = document.getElementById('error-title').value.trim();
+  const note = document.getElementById('error-note').value.trim();
+  if(!title) { alert('Введите описание ошибки'); return; }
+  userErrors.unshift({id: Date.now(), task, status, title, note});
+  localStorage.setItem('ege_user_errors', JSON.stringify(userErrors));
+  document.getElementById('error-title').value = '';
+  document.getElementById('error-note').value = '';
+  renderErrors();
+}
+function renderErrors() {
+  const el = document.getElementById('errors-list'); if(!el) return;
+  const total = userErrors.length, open = userErrors.filter(e=>e.status==='open').length, resolved = userErrors.filter(e=>e.status==='resolved').length;
+  document.getElementById('errors-total').textContent = total;
+  document.getElementById('errors-open').textContent = open;
+  document.getElementById('errors-resolved').textContent = resolved;
+  if(!total) { el.innerHTML = '<p class="notice">Ошибок пока нет.</p>'; return; }
+  el.innerHTML = userErrors.map(e=>`
+    <div class="error-item ${e.status}">
+      <div class="error-meta"><span class="error-task">${esc(e.task)}</span><span>${e.status==='resolved'?'Уже понял':'Нужно повторить'}</span></div>
+      <div class="error-title">${esc(e.title)}</div>
+      ${e.note ? `<div class="error-body">${esc(e.note)}</div>`:''}
+    </div>
+  `).join('');
+}
+function openRealVariant() {
+  const url = document.getElementById('trainer-select').value;
+  if(url) window.open(url, '_blank');
+}
 
 async function sendAiQuery() {
   const input = document.getElementById('ai-input');
@@ -165,7 +248,6 @@ async function sendAiQuery() {
   const query = input.value.trim();
   if(!query) return;
 
-  // Берем актуальную ссылку из памяти устройства
   const ngrokBase = localStorage.getItem('ege_ngrok_url');
   if(!ngrokBase) {
     alert('Сначала введите и сохраните ссылку ngrok в поле сверху!');
